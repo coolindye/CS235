@@ -1,0 +1,11 @@
+I have started work on implementing the queue, it look almost exactly like the stack
+but with a little bit different stuff
+
+------------------- Aiden ^
+I got a lot of work done on the queue, well I say a lot only because I kept getting 
+distracted while doing it haha. The functions should all be correctly implemented?
+Test 1 passes but that is an easy one, as of right now test 2 does not pass, I may have
+messed up on the resize function. I am going to take a break and come back to it later. I 
+am pushing to get all my homework done before saturday so I can relax and watch conference.
+
+------------------- Aiden ^
