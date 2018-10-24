@@ -12,7 +12,7 @@
 #define INSERTION_SORT_H
 
 #include "node.h"
-
+using namespace custom;
 /***********************************************
  * INSERTION SORT
  * Sort the items in the array
@@ -24,7 +24,7 @@ void sortInsertion(T array[], int num)
 
 
 template <class T>
-insert(Node <T> * pNode, const T & t) throw (const char *)
+Node <T> insert(Node <T> * pNode, const T & t) throw (const char *)
 {
 
 }
