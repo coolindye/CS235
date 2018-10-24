@@ -24,7 +24,7 @@ void sortInsertion(T array[], int num)
 
 
 template <class T>
-Node *insert(Node <T> * pNode, const T & t) throw (const char *)
+insert(Node <T> * pNode, const T & t) throw (const char *)
 {
 
 }
