@@ -71,7 +71,8 @@ namespace custom
 			if (head->pPrev != NULL)
 			{
 				throw ("Cannot delete without head of list.");
-				return;
+	
+			}
 			if (head->pNext == NULL)
 				delete head;
 			else
