@@ -47,8 +47,24 @@ namespace custom
     }
 
     template<class T>
-    void freeData(Node<T>*& head)
+    void freeData(Node<T> * head) throw (const char *)
     {
+		try
+		{
+			if (head->pPrev != NULL)
+			{
+				throw ("Cannot delete without head of list.");
+	
+			}
+			if (head->pNext == NULL)
+				delete head;
+			else
+				freeData(head->pNext);
+		}
+		catch (exception e)
+		{
+			cout << "ERROR: Can not insert due to - " << e << endl;
+		}
     }
     template<class T>
     Node<T> *remove(const Node<T>* pNode)
