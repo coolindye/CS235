@@ -12,6 +12,7 @@
 #define INSERTION_SORT_H
 
 #include "node.h"
+using namespace std;
 using namespace custom;
 /***********************************************
  * INSERTION SORT
@@ -19,12 +20,6 @@ using namespace custom;
  **********************************************/
 template <class T>
 void sortInsertion(T array[], int num)
-{
-}
-
-
-template <class T>
-Node <T> insert(Node <T> * pNode, const T & t) throw (const char *)
 {
 
 }

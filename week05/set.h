@@ -213,8 +213,24 @@ public:
    bool operator != (const iterator & rhs) const { return p != rhs.p; }
    bool operator == (const iterator & rhs) const { return p == rhs.p; }
 
+   // less than and greater than
+   bool operator < (const T *p) const { return (this->p < p); }
+   bool operator > (const T *p) const { return (this->p > p); }
+
+   // less than or greater than
+   bool operator < (const iterator & rhs) const { return p < rhs.p; }
+   bool operator > (const iterator & rhs) const { return p > rhs.p; }
+
    // dereference operator
    T & operator * () { return *p; }
+
+   //Addition
+   iterator & operator + (int val)
+   {
+	   for(int i = 0; i < val > 0; i++)
+		p++;
+	   return *this;
+   }
 
    // prefix increment
    iterator & operator ++ ()
@@ -376,15 +392,43 @@ set <T> :: set()
 template <class T>
 typename set <T> ::iterator set <T> :: find(T t)
 {
+	iterator begin = this->begin();
+	iterator end = this->end();
+	iterator NotFound = end;
+
+	while (begin < end)
+	{
+		// Find the median value between the iterators
+		int i = (findIndex(*end) / 2);
+		iterator Middle = begin + i;
+
+		// Re-adjust the iterators based on the median value
+		if (*Middle == t)
+		{
+			return Middle;
+		}
+		else if (*Middle > t)
+		{
+			end = Middle;
+		}
+		else
+		{
+			begin = Middle + 1;
+		}
+	}
+
+	return NotFound;
+	/*
 	for (int i = 0; i < num; i++)
 	{
 		if (this->data[i] == t)
 		{
-			iterator it(this->data + i);
+			iterator it(this->data + binarySearch[, ]);
 			return it;
 		}
 	}
-	return this->end();
+
+	return this->end();*/
 }
 
 /**********************************************
