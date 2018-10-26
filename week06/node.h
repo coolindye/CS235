@@ -57,20 +57,12 @@ namespace custom
 
         return copySource;
     }
-    template<class T>
-    Node<T> * insert(Node<T> pNode, const T & t) throw(const char *)
-    {
 
-    }
     template<class T>
     Node<T> * find(Node<T>* pHead, const T & t)
     {
     }
-    template<class T>
-    std::ostream & operator<<(std::ostream & out, Node<T>* t)
-    {
-        // TODO: insert return statement here
-    }
+
     template<class T>
     void freeData(Node<T>*& head)
     {
