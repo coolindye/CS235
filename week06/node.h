@@ -98,13 +98,23 @@ namespace custom
         {
             if (pNode != NULL)
             {
-                cout << pNode->data << " ";
-                display(pNode->pNext);
+                Node <T> *copyNode = new Node<T>(pNode->data);
+                Node<T> * nodeTemp = copyNode;
+
+                while (pNode->pNext)
+                {
+                    pNode = pNode->pNext;
+                    nodeTemp->pNext = new Node<T>(pNode->data);
+                    nodeTemp->pNext->pPrev = nodeTemp;
+                    nodeTemp = nodeTemp->pNext;
+                }
+
+                return copyNode;
             }
             else
                 return 0;
         }
-        catch (const bad_alloc & e)
+        catch (std::bad_alloc & e)
         {
             cout << "ERROR: Can not display due to - " << e.what() << endl;
         }
