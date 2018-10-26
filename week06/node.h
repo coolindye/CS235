@@ -118,8 +118,11 @@ namespace custom
             if (pNode != NULL)
             {
                 Node <T> * newNode = new Node <T>(t);
+				if (pNode->pPrev != NULL)
+					pNode->pPrev->pNext = newNode;
                 newNode->pNext = pNode;
                 newNode->pPrev = pNode->pPrev;
+
                 pNode->pPrev = newNode;
                 return newNode;
             }
@@ -152,11 +155,7 @@ namespace custom
             }
             else if (!after && pNode != NULL)
             {
-                Node <T> * newNode = new Node <T>(t);
-                newNode->pNext = pNode;
-                newNode->pPrev = pNode->pPrev;
-                pNode->pPrev = newNode;
-                return newNode;
+				insert(pNode, t);
             }
             else
             {
