@@ -44,16 +44,16 @@ namespace custom
     template<class T>
     Node<T> * copy(const Node<T>* pSource) throw(const char *)
     {
-        //Node <T> *copySource = new Node<T>(pSource->data);
-        //Node<T> * nodeTemp = copyHead;
+        Node <T> *copySource = new Node<T>(pSource->data);
+        Node<T> * nodeTemp = copySource;
 
-        //while (pSource->pNext)
-        //{
-        //    pSource = pSource->pNext;
-        //    nodeTemp->pNext = new Node<T>(pSource->data);
-        //    nodeTemp->pNext->pPrev = nodeTemp;
-        //    nodeTemp = nodeTemp->pNext;
-        //}
+        while (pSource->pNext)
+        {
+            pSource = pSource->pNext;
+            nodeTemp->pNext = new Node<T>(pSource->data);
+            nodeTemp->pNext->pPrev = nodeTemp;
+            nodeTemp = nodeTemp->pNext;
+        }
 
         return copySource;
     }
