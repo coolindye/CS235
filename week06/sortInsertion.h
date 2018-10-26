@@ -22,12 +22,5 @@ void sortInsertion(T array[], int num)
 {
 }
 
-
-template <class T>
-Node <T> insert(Node <T> * pNode, const T & t) throw (const char *)
-{
-
-}
-
 #endif // INSERTION_SORT_H
 

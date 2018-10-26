@@ -12,7 +12,7 @@
 
 #include <cassert>
 #include <iostream>
- //using namespace std;
+using namespace std;
 
  // a little helper macro to write debug code
 #ifdef NDEBUG
@@ -36,27 +36,9 @@ namespace custom
 		Node *pNext;
 		Node *pPrev;
 		// constructors and destructors
-		Node() : data(NULL), pNext(NULL), pPrev(NULL) {}
+		Node() : data(T), pNext(NULL), pPrev(NULL) {}
 		Node(const T & t) : data(t), pNext(NULL), pPrev(NULL) {}
 	};
-
-
-	template<class T>
-	Node<T> * copy(const Node<T>* pSource) throw(const char *)
-	{
-		Node <T> *copySource = new Node<T>(pSource->data);
-		Node<T> * nodeTemp = copySource;
-
-		while (pSource->pNext)
-		{
-			pSource = pSource->pNext;
-			nodeTemp->pNext = new Node<T>(pSource->data);
-			nodeTemp->pNext->pPrev = nodeTemp;
-			nodeTemp = nodeTemp->pNext;
-		}
-
-		return copySource;
-	}
 
 	template<class T>
 	Node<T> * find(Node<T>* pHead, const T & t)
@@ -71,21 +53,42 @@ namespace custom
 			if (head->pPrev != NULL)
 			{
 				throw ("Cannot delete without head of list.");
-
 			}
 			if (head->pNext == NULL)
 				delete head;
 			else
 				freeData(head->pNext);
 		}
-		catch (exception e)
+		catch (const bad_alloc & e)
 		{
-			cout << "ERROR: Can not insert due to - " << e << endl;
+			cout << "ERROR: Can not insert due to - " << e.what() << endl;
 		}
 	}
 	template<class T>
-	Node<T> *remove(const Node<T>* pNode)
+	Node<T> *remove(const Node<T>* pNode) throw (const char *)
 	{
+		try
+		{
+			Node <T> temp();
+			pNode->pPrev->pNext = pNode->pNext;
+			pNode->pNext->pPrev = pNode->pPrev;
+
+			if (pNode->pPrev != NULL)
+			{
+				temp = pNode->pPrev;
+			}
+			else
+			{
+				temp = pNode->pNext;
+			}
+
+			delete pNode;
+			return temp;
+		}
+		catch (const bad_alloc & e)
+		{
+			cout << "ERROR: Can not insert due to - " << e.what() << endl;
+		}
 	}
 
 	template <class T>
@@ -99,11 +102,11 @@ namespace custom
 				display(pNode->pNext);
 			}
 			else
-				return;
+				return 0;
 		}
-		catch (exception e)
+		catch (const bad_alloc & e)
 		{
-			cout << "ERROR: Can not display due to - " << e << endl;
+			cout << "ERROR: Can not display due to - " << e.what() << endl;
 		}
 	}
 
@@ -112,40 +115,58 @@ namespace custom
 	{
 		try
 		{
-			Node <T> * newNode = new Node(t);
-			newNode->pNext = pNode;
-			newNode->pPrev = pNode->pPrev;
-			pNode->pPrev = newNode;
-			return newNode;
+			if(pNode != NULL)
+			{
+				Node <T> * newNode = new Node <T>(t);
+				newNode->pNext = pNode;
+				newNode->pPrev = pNode->pPrev;
+				pNode->pPrev = newNode;
+				return newNode;
+			}
+			else
+			{
+				Node <T> * newNode = new Node <T>(t);
+				return newNode;
+			}
 		}
-		catch (exception e)
+		catch (const bad_alloc & e)
 		{
-			cout << "ERROR: Can not insert due to - " << e << endl;
+			cout << "ERROR: Can not insert due to - " << e.what() << endl;
 		}
 	}
 
 	template <class T>
-	Node <T> * insert(Node <T> * pNode, const T & t, const bool after) throw (const char *)
+	Node <T> *insert(Node <T> * pNode, const T & t, const bool after) throw (const char *)
 	{
 		try
 		{
-			if (after)
+			if (after && pNode != NULL)
 			{
-				Node <T> * newNode = new Node(t);
-				pNode->pNext->pPrev = newNode;
+				Node <T> * newNode = new Node <T> (t);
+				if(pNode->pNext != NULL)
+					pNode->pNext->pPrev = newNode;
 				newNode->pNext = pNode->pNext;
 				newNode->pPrev = pNode;
 				pNode->pNext = newNode;
 				return newNode;
 			}
+			else if(!after && pNode != NULL)
+			{
+				Node <T> * newNode = new Node <T>(t);
+				newNode->pNext = pNode;
+				newNode->pPrev = pNode->pPrev;
+				pNode->pPrev = newNode;
+				return newNode;
+			}
 			else
 			{
-				return insert(pNode, t);
+				Node <T> * newNode = new Node <T>(t);
+				return newNode;
 			}
 		}
-		catch (exception e)
+		catch (const bad_alloc & e)
 		{
-			cout << "ERROR: Can not insert due to - " << e << endl;
+			cout << "ERROR: Can not insert due to - " << e.what() << endl;
 		}
 	}
 
@@ -162,22 +183,22 @@ namespace custom
 			else
 				return;
 		}
-		catch (exception e)
+		catch (const bad_alloc & e)
 		{
-			cout << "ERROR: Can not display due to - " << e << endl;
+			cout << "ERROR: Can not display due to - " << e.what() << endl;
 		}
 	}
 
 	template <class T>
-	ostream & operator <<(ostream& out, const Node <T> * pNode) throw (const char *)
+	ostream & operator <<(ostream & out, const Node <T> * pNode) throw (const char *)
 	{
 		try
 		{
 			display(pNode);
 		}
-		catch (exception e)
+		catch (const bad_alloc & e)
 		{
-			cout << "ERROR: Insertion operator not working due to - " << e << endl;
+			cout << "ERROR: Insertion operator not working due to - " << e.what() << endl;
 		}
 	}
 }; // namespace custom
