@@ -16,7 +16,7 @@ using namespace std;
 
 // a little helper macro to write debug code
 #ifdef NDEBUG
-#define Debug(statement)
+#define Debug
 #else
 #define Debug(statement) statement
 #endif // !NDEBUG
