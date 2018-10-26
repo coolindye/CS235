@@ -50,10 +50,6 @@ namespace custom
     {
         try
         {
-            if (head->pPrev != NULL)
-            {
-                throw ("Cannot delete without head of list.");
-            }
             if (head->pNext == NULL)
                 delete head;
             else
@@ -204,6 +200,7 @@ namespace custom
         try
         {
             display(pNode);
+			return out;
         }
         catch (const bad_alloc & e)
         {

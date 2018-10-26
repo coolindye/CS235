@@ -35,7 +35,7 @@ void testRemove();
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
 #define TEST1   // for testSimple()
 #define TEST2   // for testInsert()
-//#define TEST3   // for testLoop()
+#define TEST3   // for testLoop()
 //#define TEST4   // for testInteractive()
 //#define TEST5   // for testRemove()
 
@@ -86,7 +86,7 @@ int main()
       default:
          cout << "Unrecognized command, exiting...\n";
    }
-
+   system("pause");
    return 0;
 }
 
