@@ -12,7 +12,7 @@
 
 #include <cassert>
 #include <iostream>
-//using namespace std;
+using namespace std;
 
 // a little helper macro to write debug code
 #ifdef NDEBUG
@@ -42,23 +42,6 @@ namespace custom
 
 
     template<class T>
-    Node<T> * copy(const Node<T>* pSource) throw(const char *)
-    {
-        Node <T> *copySource = new Node<T>(pSource->data);
-        Node<T> * nodeTemp = copySource;
-
-        while (pSource->pNext)
-        {
-            pSource = pSource->pNext;
-            nodeTemp->pNext = new Node<T>(pSource->data);
-            nodeTemp->pNext->pPrev = nodeTemp;
-            nodeTemp = nodeTemp->pNext;
-        }
-
-        return copySource;
-    }
-
-    template<class T>
     Node<T> * find(Node<T>* pHead, const T & t)
     {
     }
@@ -79,8 +62,18 @@ namespace custom
 		{
 			if (pNode != NULL)
 			{
-				cout << pNode->data << " ";
-				display(pNode->pNext);
+                Node <T> *copyNode = new Node<T>(pNode->data);
+                Node<T> * nodeTemp = copyNode;
+
+                while (pNode->pNext)
+                {
+                    pNode = pNode->pNext;
+                    nodeTemp->pNext = new Node<T>(pNode->data);
+                    nodeTemp->pNext->pPrev = nodeTemp;
+                    nodeTemp = nodeTemp->pNext;
+                }
+
+                return copyNode;
 			}
 			else
 				return;
