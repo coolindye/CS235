@@ -12,7 +12,7 @@
 
 #include <cassert>
 #include <iostream>
-using namespace std;
+//using namespace std;
 
 // a little helper macro to write debug code
 #ifdef NDEBUG
@@ -32,48 +32,51 @@ namespace custom
 	class Node
 	{
 	public:
+        T data;
+        Node *pNext;
+        Node *pPrev;
 		// constructors and destructors
-		Node():            data(NULL) pNext(NULL) pPrev(NULL) {};
-		Node(const T & t): data(num)  pNext(NULL) pPrev(NULL)  {};
-		
-        copy(const Node <T> *pSource)      throw (const char *);
-        insert(Node <T> pNode, const T &t) throw (const char *);
-        find(Nade <T> *pHead, const T &t);
-        ostream & operator << (ostream & out, Node <T> *t);
-        void freeData(Node <T> * & head);
-        remove(const Node<T> *pNode);
-
-		T data;              
-		Node *pNext;               
-		Node *pPrev;
+		Node()           : data(NULL), pNext(NULL), pPrev(NULL) {}
+		Node(const T & t): data(t),  pNext(NULL), pPrev(NULL) {}
 	};
 
 
     template<class T>
-    Node<T>::copy(const Node<T>* pSource) throw(const char *)
+    Node<T> * copy(const Node<T>* pSource) throw(const char *)
+    {
+        //Node <T> *copySource = new Node<T>(pSource->data);
+        //Node<T> * nodeTemp = copyHead;
+
+        //while (pSource->pNext)
+        //{
+        //    pSource = pSource->pNext;
+        //    nodeTemp->pNext = new Node<T>(pSource->data);
+        //    nodeTemp->pNext->pPrev = nodeTemp;
+        //    nodeTemp = nodeTemp->pNext;
+        //}
+
+        return copySource;
+    }
+    template<class T>
+    Node<T> * insert(Node<T> pNode, const T & t) throw(const char *)
     {
 
     }
     template<class T>
-    Node<T>::insert(Node<T> pNode, const T & t) throw(const char *)
-    {
-
-    }
-    template<class T>
-    Node<T>::find(Nade<T>* pHead, const T & t)
+    Node<T> * find(Node<T>* pHead, const T & t)
     {
     }
     template<class T>
-    ostream & Node<T>::operator<<(ostream & out, Node<T>* t)
+    std::ostream & operator<<(std::ostream & out, Node<T>* t)
     {
         // TODO: insert return statement here
     }
     template<class T>
-    void Node<T>::freeData(Node<T>*& head)
+    void freeData(Node<T>*& head)
     {
     }
     template<class T>
-    Node<T>::remove(const Node<T>* pNode)
+    Node<T> *remove(const Node<T>* pNode)
     {
     }
 }; // namespace custom

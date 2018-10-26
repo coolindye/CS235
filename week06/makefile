@@ -1,12 +1,25 @@
 ###############################################################
 # Program:
 #     Assignment 06, NODE
-#     Brother XXXXX, CS235
+#     Brother Kirby, CS235
 # Author:
-#     <your name here>
+#     Garrett Smith & Aiden Reid & Ian Stubbs
 # Summary:
-#     <put a description here>
+#     TO DO
+# Coding Time:
+#     Pair: 
+#     Garrett: 
+#     Ian: 
+#     Aiden:
+#
+# The most difficult part:
+#     Aiden: 
+#     Garrett:
+#     Ian: 
 ###############################################################
+
+
+
 
 ##############################################################
 # The main rule
