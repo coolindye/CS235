@@ -61,9 +61,9 @@ namespace custom
 			else
 				freeData(head->pNext);
 		}
-		catch (exception e)
+		catch (std::bad_alloc & e)
 		{
-			cout << "ERROR: Can not insert due to - " << e << endl;
+            cout << "ERROR: Can not insert due to - " << e.what() << endl;
 		}
     }
     template<class T>
@@ -92,11 +92,11 @@ namespace custom
                 return copyNode;
 			}
 			else
-				return;
+				return 0;
 		}
-		catch (exception e)
+		catch (std::bad_alloc & e)
 		{
-			cout << "ERROR: Can not display due to - " << e << endl;
+            cout << "ERROR: Can not display due to - " << e.what() << endl;
 		}
 	}
 
