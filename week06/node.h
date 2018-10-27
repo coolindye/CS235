@@ -36,24 +36,46 @@ namespace custom
         Node *pNext;
         Node *pPrev;
         // constructors and destructors
-        Node() : data(T), pNext(NULL), pPrev(NULL) {}
+        Node() : data(T()), pNext(NULL), pPrev(NULL) {}
         Node(const T & t) : data(t), pNext(NULL), pPrev(NULL) {}
     };
 
     template<class T>
-    Node<T> * find(Node<T>* pHead, const T & t)
+    Node<T> * find(Node<T>* pHead, const T & t) throw (const char *)
     {
+		try
+		{
+			if (pHead->data == t)
+			{
+				return pHead;
+			}
+			else
+			{
+				if (pHead->pNext != NULL) return find(pHead->pNext, t);
+			}
+
+			return NULL;
+		}
+		catch (const bad_alloc & e)
+		{
+			cout << "ERROR: Can not find due to - " << e.what() << endl;
+		}
     }
 
     template<class T>
-    void freeData(Node<T> * head) throw (const char *)
+    void freeData(Node<T> * &head) throw (const char *)
     {
         try
         {
-            if (head->pNext == NULL)
-                delete head;
-            else
-                freeData(head->pNext);
+			if (head->pNext == NULL)
+			{
+				head = NULL;
+			}
+			else
+			{
+				freeData(head->pNext);
+				head = NULL;
+			}
         }
         catch (const bad_alloc & e)
         {
@@ -65,9 +87,11 @@ namespace custom
     {
         try
         {
-            Node <T> temp();
-            pNode->pPrev->pNext = pNode->pNext;
-            pNode->pNext->pPrev = pNode->pPrev;
+            Node <T> * temp;
+			if (pNode->pPrev != NULL)
+				pNode->pPrev->pNext = pNode->pNext;
+			if (pNode->pNext != NULL)
+				pNode->pNext->pPrev = pNode->pPrev;
 
             if (pNode->pPrev != NULL)
             {
@@ -78,7 +102,7 @@ namespace custom
                 temp = pNode->pNext;
             }
 
-            delete pNode;
+            pNode = NULL;
             return temp;
         }
         catch (const bad_alloc & e)
@@ -176,30 +200,16 @@ namespace custom
     }
 
     template <class T>
-    void display(const Node <T> * pNode) throw (const char *)
-    {
-        try
-        {
-            if (pNode != NULL)
-            {
-                cout << pNode->data << " ";
-                display(pNode->pNext);
-            }
-            else
-                return;
-        }
-        catch (const bad_alloc & e)
-        {
-            cout << "ERROR: Can not display due to - " << e.what() << endl;
-        }
-    }
-
-    template <class T>
     ostream & operator <<(ostream & out, const Node <T> * pNode) throw (const char *)
     {
         try
         {
-            display(pNode);
+			if (pNode != NULL)
+			{
+				out << pNode->data;
+				if (pNode->pNext != NULL)
+					out << ", " << pNode->pNext;
+			}
 			return out;
         }
         catch (const bad_alloc & e)

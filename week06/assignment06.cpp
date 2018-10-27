@@ -36,8 +36,8 @@ void testRemove();
 #define TEST1   // for testSimple()
 #define TEST2   // for testInsert()
 #define TEST3   // for testLoop()
-//#define TEST4   // for testInteractive()
-//#define TEST5   // for testRemove()
+#define TEST4   // for testInteractive()
+#define TEST5   // for testRemove()
 
 /**********************************************************************
  * MAIN
@@ -86,7 +86,7 @@ int main()
       default:
          cout << "Unrecognized command, exiting...\n";
    }
-   system("pause");
+   //system("pause");
    return 0;
 }
 
