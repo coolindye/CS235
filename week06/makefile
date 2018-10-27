@@ -9,13 +9,14 @@
 # Coding Time:
 #     Pair: 
 #     Garrett: 
-#     Ian: 
+#     Ian: 3 hours
 #     Aiden:
 #
 # The most difficult part:
 #     Aiden: 
 #     Garrett:
-#     Ian: 
+#     Ian: Understanding the delete function and how to be 
+#          implement it efficieantly. 
 ###############################################################
 
 
