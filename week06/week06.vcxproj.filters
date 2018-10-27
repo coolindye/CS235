@@ -31,6 +31,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="words.txt" />
+    <Text Include="words.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

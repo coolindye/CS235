@@ -62,6 +62,24 @@ namespace custom
 		}
     }
 
+	template<class T>
+	Node<T> * findGreater(Node<T>* pHead, const T & t) throw (const char *)
+	{
+		try
+		{
+			if (pHead->data > t) return pHead;
+
+			else if (pHead->pNext != NULL) return findGreater(pHead->pNext, t);
+
+			return pHead;
+;
+		}
+		catch (const bad_alloc & e)
+		{
+			cout << "ERROR: Can not find due to - " << e.what() << endl;
+		}
+	}
+
     template<class T>
     void freeData(Node<T> * &head) throw (const char *)
     {
