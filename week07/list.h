@@ -51,7 +51,7 @@ namespace custom
 
         List & operator = (const List & rhs);
 
-        int size() const   { return numElements; }
+        int size  () const { return numElements; }
         bool empty() const { return (numElements == 0) ? true : false; }
         void clear();
 
