@@ -46,7 +46,7 @@ namespace custom
         int numElements;
     public:
         List() : pHead(NULL), pTail(NULL), numElements(0) {}
-        List(const list & rhs) throw (const char *);
+        List(const List & rhs) throw (const char *);
         ~List();
 
         List & operator = (const List & rhs);
@@ -70,6 +70,71 @@ namespace custom
 
 
 
+
+    template<class T>
+    List<T>::List(const List & rhs) throw(const char *)
+    {
+    }
+
+    template<class T>
+    List<T>::~List()
+    {
+    }
+
+    template<class T>
+    List<T> & List<T>::operator=(const List & rhs)
+    {
+        // TODO: insert return statement here
+    }
+
+    template<class T>
+    void List<T>::clear()
+    {
+    }
+
+    template<class T>
+    void List<T>::push_back(const T & t) throw(const char *)
+    {
+    }
+
+    template<class T>
+    void List<T>::push_front(const T & t) throw(const char *)
+    {
+    }
+
+    template<class T>
+    void List<T>::pop_back()
+    {
+    }
+
+    template<class T>
+    void List<T>::pop_front()
+    {
+    }
+
+    template<class T>
+    T & List<T>::back() throw(const char *)
+    {
+        // TODO: insert return statement here
+    }
+
+    template<class T>
+    T & List<T>::front() throw(const char *)
+    {
+        // TODO: insert return statement here
+    }
+
+    template<class T>
+    T & List<T>::back() const throw(const char *)
+    {
+        // TODO: insert return statement here
+    }
+
+    template<class T>
+    T & List<T>::front() const throw(const char *)
+    {
+        // TODO: insert return statement here
+    }
 
 };
 
