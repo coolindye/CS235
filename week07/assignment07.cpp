@@ -15,7 +15,7 @@
 #include <string>       // for the String class
 #include <cassert>      // for ASSERT
 #include "list.h"       // your List class should be in list.h
-//#include <list>
+#include <list>
 #include "fibonacci.h"  // your fibonacci() function
 using std::cout;
 using std::cin;
@@ -25,7 +25,7 @@ using std::ostream;
 using std::ios;
 using std::setw;
 using namespace custom;
-//using namespace std;
+using namespace std;
 
 // prototypes for our four test functions
 void testSimple();
