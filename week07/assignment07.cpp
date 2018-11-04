@@ -15,7 +15,6 @@
 #include <string>       // for the String class
 #include <cassert>      // for ASSERT
 #include "list.h"       // your List class should be in list.h
-#include <list>
 #include "fibonacci.h"  // your fibonacci() function
 using std::cout;
 using std::cin;
@@ -38,9 +37,9 @@ void testInsertRemove();
 // I suggest first commenting out all of these tests, then try to use only
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
 #define TEST1   // for testSimple()
-#define TEST2   // for testPush()
-#define TEST3   // for testIterate()
-#define TEST4   // for testInsertRemove()
+//#define TEST2   // for testPush()
+//#define TEST3   // for testIterate()
+//#define TEST4   // for testInsertRemove()
 
 /**********************************************************************
  * MAIN
