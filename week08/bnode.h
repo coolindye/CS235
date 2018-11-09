@@ -186,7 +186,7 @@ using namespace std;
 			{
 				cout << "Unable to allocate a node" << endl;
 			}*/
-			BNode <T> * newNode();
+			BNode <T> * newNode;
 			return newNode;
 		}
 		catch (std::bad_alloc & e)
