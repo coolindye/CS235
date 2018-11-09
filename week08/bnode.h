@@ -119,7 +119,7 @@ using namespace std;
 					head->pParent = nullptr;
 				}
 			}
-			delete head;
+			head = NULL;
 		}
 		catch (const bad_alloc & e)
 		{
@@ -145,45 +145,27 @@ using namespace std;
 	{
 		try
 		{
-			/*try
+			if (head != NULL)
 			{
+				BNode <T> * newNode = new BNode <T>(head->data);
 				if (head->pLeft != NULL)
 				{
-					head->pLeft->pParent = nullptr;
-					deleteBTree(head->pLeft);
-					head->pLeft = nullptr;
+					newNode->pLeft = copyBTree(head->pLeft);
+					if (newNode->pLeft != NULL)
+						newNode->pLeft->pParent = newNode;
 				}
-				else if (head->pRight != NULL)
+				if (head->pRight != NULL)
 				{
-					head->pRight->pParent = nullptr;
-					deleteBTree(head->pRight);
-					head->pRight = nullptr;
-				}
-				else if (head->pParent != NULL)
-				{
-					if (head->pParent->pLeft == head)
-					{
-						head->pParent->pLeft = nullptr;
-						deleteBTree(head->pParent);
-						head->pParent = nullptr;
-					}
-					else if (head->pParent->pRight == head)
-					{
-						head->pParent->pRight = nullptr;
-						deleteBTree(head->pParent);
-						head->pParent = nullptr;
-					}
+					newNode->pRight = copyBTree(head->pRight);
+					if (newNode->pRight != NULL)
+						newNode->pRight->pParent = newNode;
 				}
 
-				delete head->data;
-				return head;
+				return newNode;
 			}
-			catch (const bad_alloc & e)
-			{
-				cout << "Unable to allocate a node" << endl;
-			}*/
-			BNode <T> * newNode = new BNode <T>();
-			return newNode;
+
+			return NULL;
+
 		}
 		catch (std::bad_alloc & e)
 		{
