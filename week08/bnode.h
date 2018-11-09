@@ -1,15 +1,15 @@
 /***********************************************************************
  * Header:
- *    bnode
+ *    BNode
  * Summary:
- *    This class contains the notion of an bnode and the non-member
+ *    This class contains the notion of an BNode and the non-member
  *    functions that allow them to act as a linked list
  * Author
  *    Garrett Smith, Aiden Reid, Ian Stubbs
  ************************************************************************/
 
-#ifndef BNODE_H
-#define BNODE_H
+#ifndef bnode_H
+#define bnode_H
 
 #include <cassert>
 #include <iostream>
@@ -22,26 +22,23 @@ using namespace std;
 #define Debug(statement) statement
 #endif // !NDEBUG
 
-namespace custom
-{
-
 	/****************************************************
-	 * bnode
+	 * BNode
 	 * A class that holds stuff as part of a linked list
 	 * All variable are public as well as constructors
 	 ***************************************************/
 	template <class T>
-	class bnode
+	class BNode
 	{
 	public:
 		T data;
-		bnode *pLeft;
-		bnode *pRight;
-		bnode *pParent;
+		BNode *pLeft;
+		BNode *pRight;
+		BNode *pParent;
 
 		// constructors
-		bnode() : data(T()), pLeft(NULL), pRight(NULL), pRight(NULL) {}
-		bnode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pRight(NULL) {}
+		BNode() : data(T()), pLeft(NULL), pRight(NULL), pRight(NULL) {}
+		BNode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pRight(NULL) {}
 	};
 
 	/*****************************************************
@@ -50,14 +47,50 @@ namespace custom
 	*  given linked-list
 	*
 	* Input:
-	*  bnode * &pHead - Reference to pointer to start
+	*  BNode * &pHead - Reference to pointer to start
 	*                  of linked List
 	*
 	* Output:
-	*  void - all bnodes in list have been set to NULL
+	*  void - all BNodes in list have been set to NULL
 	*****************************************************/
 	template<class T>
-	void deleteBTree(bnode<T> * &head) throw (const char *)
+	int sizeBTree(BNode<T> * &head) throw (const char *)
+	{
+		try
+		{
+			int size = 0;
+			if (head->pLeft != NULL)
+			{
+				sizeBTree(head->pLeft);
+				head->pLeft = nullptr;
+			}
+			else if (head->pRight != NULL)
+			{
+				head->pRight->pParent = nullptr;
+				sizeBTree(head->pRight);
+				head->pRight = nullptr;
+			}
+		}
+		catch (const bad_alloc & e)
+		{
+			cout << "Unable to allocate a node" << endl;
+		}
+	}
+
+	/*****************************************************
+	* Function: DELETE BTREE
+	* Description: Release all the memory contained in a
+	*  given linked-list
+	*
+	* Input:
+	*  BNode * &pHead - Reference to pointer to start
+	*                  of linked List
+	*
+	* Output:
+	*  void - all BNodes in list have been set to NULL
+	*****************************************************/
+	template<class T>
+	void deleteBTree(BNode<T> * &head) throw (const char *)
 	{
 		try
 		{
@@ -100,18 +133,18 @@ namespace custom
 	/*****************************************************
 	* Function: COPY BTREE
 	* Description: Copy a linked-list. Takes a pointer to
-	*  a bnode as a parameter and returns a newly created
-	*  linked-list containing a copy of all the bnodes
+	*  a BNode as a parameter and returns a newly created
+	*  linked-list containing a copy of all the BNodes
 	*  below the list represented by the parameter.
 	*
 	* Input:
-	*  const bnode *pbnode - pointer to start of Linked List
+	*  const BNode *pBNode - pointer to start of Linked List
 	*
 	* Output:
-	*  bnode * - pointer to start of new list
+	*  BNode * - pointer to start of new list
 	*****************************************************/
 	template <class T>
-	bnode <T> * copyBTree(const bnode <T> * treeNode) throw (const char *)
+	BNode <T> * copyBTree(const BNode <T> * head) throw (const char *)
 	{
 		try
 		{
@@ -161,26 +194,26 @@ namespace custom
 
 	/*****************************************************
 	* Function: ADD LEFT
-	* Description: Insert a new bnode into the current
-	*  Binary Tree. The new bnode will be inserted to the
+	* Description: Insert a new BNode into the current
+	*  Binary Tree. The new BNode will be inserted to the
 	*  left of the current node
 	*
 	* Input:
-	*  bnode *pbnode - pointer to bnode at which a new bnode
+	*  BNode *pBNode - pointer to BNode at which a new BNode
 	*                is to be inserted
-	*  const T & t - value being placed in new bnode
+	*  const T & t - value being placed in new BNode
 	*
 	* Output:
-	*  bnode * - pointer to new bnode
+	*  BNode * - pointer to new BNode
 	*****************************************************/
 	template <class T>
-	void addLeft(bnode <T> * treeNode, const T & t) throw (const char *)
+	void addLeft(BNode <T> * treeNode, const T & t) throw (const char *)
 	{
 		try
 		{
 			if (treeNode != NULL)
 			{
-				bnode <T> * newNode = new bnode <T>(t);
+				BNode <T> * newNode = new BNode <T>(t);
 				treeNode->pLeft = newNode;
 				newNode->pParent = treeNode;
 			}
@@ -197,20 +230,20 @@ namespace custom
 
 	/*****************************************************
 	* Function: ADD LEFT
-	* Description: Insert a new bnode into the current
-	*  Binary Tree. The new bnode will be inserted to the
+	* Description: Insert a new BNode into the current
+	*  Binary Tree. The new BNode will be inserted to the
 	*  left of the current node
 	*
 	* Input:
-	*  bnode *pbnode - pointer to bnode at which a new bnode
+	*  BNode *pBNode - pointer to BNode at which a new BNode
 	*                is to be inserted
-	*  const T & t - value being placed in new bnode
+	*  const T & t - value being placed in new BNode
 	*
 	* Output:
-	*  bnode * - pointer to new bnode
+	*  BNode * - pointer to new BNode
 	*****************************************************/
 	template <class T>
-	void addLeft(bnode <T> * treeNode, bnode <T> * newNode) throw (const char *)
+	void addLeft(BNode <T> * treeNode, BNode <T> * newNode) throw (const char *)
 	{
 		try
 		{
@@ -232,26 +265,26 @@ namespace custom
 
 	/*****************************************************
 	* Function: ADD RIGHT
-	* Description: Insert a new bnode into the current
-	*  Binary Tree. The new bnode will be inserted to the
+	* Description: Insert a new BNode into the current
+	*  Binary Tree. The new BNode will be inserted to the
 	*  left of the current node
 	*
 	* Input:
-	*  bnode *pbnode - pointer to bnode at which a new bnode
+	*  BNode *pBNode - pointer to BNode at which a new BNode
 	*                is to be inserted
-	*  const T & t - value being placed in new bnode
+	*  const T & t - value being placed in new BNode
 	*
 	* Output:
-	*  bnode * - pointer to new bnode
+	*  BNode * - pointer to new BNode
 	*****************************************************/
 	template <class T>
-	void addRight(bnode <T> * treeNode, const T & t) throw (const char *)
+	void addRight(BNode <T> * treeNode, const T & t) throw (const char *)
 	{
 		try
 		{
 			if (treeNode != NULL)
 			{
-				bnode <T> * newNode = new bnode <T>(t);
+				BNode <T> * newNode = new BNode <T>(t);
 				treeNode->pRight = newNode;
 				newNode->pParent = treeNode;
 			}
@@ -268,20 +301,20 @@ namespace custom
 
 	/*****************************************************
 	* Function: ADD RIGHT
-	* Description: Insert a new bnode into the current
-	*  Binary Tree. The new bnode will be inserted to the
+	* Description: Insert a new BNode into the current
+	*  Binary Tree. The new BNode will be inserted to the
 	*  left of the current node
 	*
 	* Input:
-	*  bnode *pbnode - pointer to bnode at which a new bnode
+	*  BNode *pBNode - pointer to BNode at which a new BNode
 	*                is to be inserted
-	*  const T & t - value being placed in new bnode
+	*  const T & t - value being placed in new BNode
 	*
 	* Output:
-	*  bnode * - pointer to new bnode
+	*  BNode * - pointer to new BNode
 	*****************************************************/
 	template <class T>
-	void addRight(bnode <T> * treeNode, bnode <T> * newNode) throw (const char *)
+	void addRight(BNode <T> * treeNode, BNode <T> * newNode) throw (const char *)
 	{
 		try
 		{
@@ -310,21 +343,21 @@ namespace custom
 	*
 	* Input:
 	*  ostream & out - reference to ostream variable
-	*  bnode *pbnode - pointer to start of linked-list
+	*  BNode *pBNode - pointer to start of linked-list
 	*
 	* Output:
 	*  ostream - output stream value
 	*****************************************************/
 	template <class T>
-	ostream & operator <<(ostream & out, const bnode <T> * pbnode) throw (const char *)
+	ostream & operator <<(ostream & out, const BNode <T> * pBNode) throw (const char *)
 	{
 		try
 		{
-			if (pbnode != NULL)
+			if (pBNode != NULL)
 			{
-				out << pbnode->data;
-				if (pbnode->pNext != NULL)
-					out << ", " << pbnode->pNext;
+				out << pBNode->data;
+				if (pBNode->pNext != NULL)
+					out << ", " << pBNode->pNext;
 			}
 			return out;
 		}
@@ -333,6 +366,5 @@ namespace custom
 			cout << "ERROR: Insertion operator not working due to - " << e.what() << endl;
 		}
 	}
-}; // namespace custom
 
-#endif // BNODE_H
+#endif // BNode_H
