@@ -98,13 +98,13 @@ using namespace std;
 				deleteBTree(head->pLeft);
 				head->pLeft = nullptr;
 			}
-			else if (head->pRight != NULL)
+			if (head->pRight != NULL)
 			{
 				head->pRight->pParent = nullptr;
 				deleteBTree(head->pRight);
 				head->pRight = nullptr;
 			}
-			else if (head->pParent != NULL)
+			if (head->pParent != NULL)
 			{
 				if (head->pParent->pLeft == head)
 				{
@@ -112,15 +112,14 @@ using namespace std;
 					deleteBTree(head->pParent);
 					head->pParent = nullptr;
 				}
-				else if (head->pParent->pRight == head)
+				if (head->pParent->pRight == head)
 				{
 					head->pParent->pRight = nullptr;
 					deleteBTree(head->pParent);
 					head->pParent = nullptr;
 				}
 			}
-
-			head->data = T(NULL);
+			delete head;
 		}
 		catch (const bad_alloc & e)
 		{
@@ -358,31 +357,20 @@ using namespace std;
 	template <class T>
 	ostream & operator <<(ostream & out, const BNode <T> * pNode) throw (const char *)
 	{
-		/*try
-		{
-			if (pBNode != nullptr)
-			{
-				out << pBNode->data;
-				if (pBNode->pNext != nullptr)
-					out << ", " << pBNode->pNext;
-			}
-			return out;
-		}
-		catch (const bad_alloc & e)
-		{
-			cout << "ERROR: Insertion operator not working due to - " << e.what() << endl;
-		}*/
 		try
 		{
 			if (pNode->pLeft != NULL)
 			{
-				out << sizeBTree(pNode->pLeft);
+				out << pNode->pLeft;
 			}
+
+			out << pNode->data << " ";
+
 			if (pNode->pRight != NULL)
 			{
-				out << sizeBTree(pNode->pRight);
+				out << pNode->pRight;
 			}
-			out << pNode->data;
+			
 			return out;
 		}
 		catch (const bad_alloc & e)
