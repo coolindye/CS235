@@ -126,6 +126,7 @@
     <ClInclude Include="bnode.h" />
     <ClInclude Include="huffman.h" />
     <ClInclude Include="pair.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="huffman1.txt" />
