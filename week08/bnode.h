@@ -123,7 +123,7 @@ using namespace std;
 				}
 			}
 
-			delete head->data;
+			head->data = T(NULL);
 		}
 		catch (const bad_alloc & e)
 		{
@@ -186,6 +186,8 @@ using namespace std;
 			{
 				cout << "Unable to allocate a node" << endl;
 			}*/
+			BNode <T> * newNode();
+			return newNode;
 		}
 		catch (std::bad_alloc & e)
 		{
@@ -352,7 +354,7 @@ using namespace std;
 	template <class T>
 	ostream & operator <<(ostream & out, const BNode <T> * pBNode) throw (const char *)
 	{
-		try
+		/*try
 		{
 			if (pBNode != nullptr)
 			{
@@ -365,7 +367,8 @@ using namespace std;
 		catch (const bad_alloc & e)
 		{
 			cout << "ERROR: Insertion operator not working due to - " << e.what() << endl;
-		}
+		}*/
+		return out;
 	}
 
 #endif // BNode_H
