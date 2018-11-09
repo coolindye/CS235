@@ -43,6 +43,7 @@ namespace custom
 			Node() : data(T()), next(NULL), prev(NULL) {}
 			Node(const T & t) : data(t), next(NULL), prev(NULL) {}
 			Node(const T & t, Node <T> * n = nullptr, Node <T> * p = nullptr) : data(t), next(n), prev(p) {}
+            Node(const T & t, Node it) {}
 		};
 
 		Node <T> *pHead;
@@ -191,10 +192,10 @@ namespace custom
 		{
 			try
 			{
-				Node <T> * newNode = new Node <T> (t, *it->next);
-
-				if (*it == pTail) pTail = newNode;
-				*it->next = newNode;
+                Node <T> * newNode = new Node <T>; //(t, (*it).next);
+                
+				//if (it == t->pTail) t->pTail = newNode;
+				//(*it).next = newNode;
 				return it;
 			}
 			catch (const bad_alloc & e)
