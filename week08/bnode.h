@@ -58,19 +58,16 @@ using namespace std;
 	{
 		try
 		{
-			int size = 0;
+			int size = 1;
 			if (head->pLeft != NULL)
 			{
-				return size + sizeBTree(head->pLeft);
+				size += sizeBTree(head->pLeft);
 			}
-			else if (head->pRight != NULL)
+			if (head->pRight != NULL)
 			{
-				return size + sizeBTree(head->pRight);
+				size += sizeBTree(head->pRight);
 			}
-			else 
-			{
-				return 1;
-			}
+			return size;
 		}
 		catch (const bad_alloc & e)
 		{
@@ -186,7 +183,7 @@ using namespace std;
 			{
 				cout << "Unable to allocate a node" << endl;
 			}*/
-			BNode <T> * newNode;
+			BNode <T> * newNode = new BNode <T>();
 			return newNode;
 		}
 		catch (std::bad_alloc & e)
@@ -250,10 +247,17 @@ using namespace std;
 	{
 		try
 		{
+
 			if (treeNode != NULL)
 			{
-				treeNode->pLeft = newNode;
-				newNode->pParent = treeNode;
+				if (newNode != NULL)
+				{
+					treeNode->pLeft = newNode;
+					newNode->pParent = treeNode;
+				}
+				else 
+					treeNode->pLeft = newNode;
+					
 			}
 			else
 			{
@@ -352,7 +356,7 @@ using namespace std;
 	*  ostream - output stream value
 	*****************************************************/
 	template <class T>
-	ostream & operator <<(ostream & out, const BNode <T> * pBNode) throw (const char *)
+	ostream & operator <<(ostream & out, const BNode <T> * pNode) throw (const char *)
 	{
 		/*try
 		{
@@ -368,6 +372,23 @@ using namespace std;
 		{
 			cout << "ERROR: Insertion operator not working due to - " << e.what() << endl;
 		}*/
+		try
+		{
+			if (pNode->pLeft != NULL)
+			{
+				out << sizeBTree(pNode->pLeft);
+			}
+			if (pNode->pRight != NULL)
+			{
+				out << sizeBTree(pNode->pRight);
+			}
+			out << pNode->data;
+			return out;
+		}
+		catch (const bad_alloc & e)
+		{
+			cout << "Unable to allocate a node" << endl;
+		}
 		return out;
 	}
 
