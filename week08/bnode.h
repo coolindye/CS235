@@ -37,8 +37,8 @@ using namespace std;
 		BNode *pParent;
 
 		// constructors
-		BNode() : data(T()), pLeft(NULL), pRight(NULL), pRight(NULL) {}
-		BNode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pRight(NULL) {}
+		BNode() : data(T()), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+		BNode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
 	};
 
 	/*****************************************************
@@ -54,21 +54,22 @@ using namespace std;
 	*  void - all BNodes in list have been set to NULL
 	*****************************************************/
 	template<class T>
-	int sizeBTree(BNode<T> * &head) throw (const char *)
+	int sizeBTree(BNode<T> * head) throw (const char *)
 	{
 		try
 		{
 			int size = 0;
 			if (head->pLeft != NULL)
 			{
-				sizeBTree(head->pLeft);
-				head->pLeft = nullptr;
+				return size + sizeBTree(head->pLeft);
 			}
 			else if (head->pRight != NULL)
 			{
-				head->pRight->pParent = nullptr;
-				sizeBTree(head->pRight);
-				head->pRight = nullptr;
+				return size + sizeBTree(head->pRight);
+			}
+			else 
+			{
+				return 1;
 			}
 		}
 		catch (const bad_alloc & e)
@@ -148,7 +149,7 @@ using namespace std;
 	{
 		try
 		{
-			try
+			/*try
 			{
 				if (head->pLeft != NULL)
 				{
@@ -184,7 +185,7 @@ using namespace std;
 			catch (const bad_alloc & e)
 			{
 				cout << "Unable to allocate a node" << endl;
-			}
+			}*/
 		}
 		catch (std::bad_alloc & e)
 		{
@@ -353,10 +354,10 @@ using namespace std;
 	{
 		try
 		{
-			if (pBNode != NULL)
+			if (pBNode != nullptr)
 			{
 				out << pBNode->data;
-				if (pBNode->pNext != NULL)
+				if (pBNode->pNext != nullptr)
 					out << ", " << pBNode->pNext;
 			}
 			return out;
