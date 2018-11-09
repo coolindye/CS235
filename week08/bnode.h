@@ -31,6 +31,7 @@ using namespace std;
 	class BNode
 	{
 	public:
+		static int size;
 		T data;
 		BNode *pLeft;
 		BNode *pRight;
@@ -56,6 +57,7 @@ using namespace std;
 	template<class T>
 	int sizeBTree(BNode<T> * head) throw (const char *)
 	{
+		/*
 		try
 		{
 			int size = 0;
@@ -76,6 +78,8 @@ using namespace std;
 		{
 			cout << "Unable to allocate a node" << endl;
 		}
+		*/
+		return size;
 	}
 
 	/*****************************************************
@@ -219,6 +223,7 @@ using namespace std;
 				BNode <T> * newNode = new BNode <T>(t);
 				treeNode->pLeft = newNode;
 				newNode->pParent = treeNode;
+				size++;
 			}
 			else
 			{
@@ -254,6 +259,7 @@ using namespace std;
 			{
 				treeNode->pLeft = newNode;
 				newNode->pParent = treeNode;
+				size++;
 			}
 			else
 			{
@@ -290,6 +296,7 @@ using namespace std;
 				BNode <T> * newNode = new BNode <T>(t);
 				treeNode->pRight = newNode;
 				newNode->pParent = treeNode;
+				size++;
 			}
 			else
 			{
@@ -325,6 +332,7 @@ using namespace std;
 			{
 				treeNode->pRight = newNode;
 				newNode->pParent = treeNode;
+				size++;
 			}
 			else
 			{
