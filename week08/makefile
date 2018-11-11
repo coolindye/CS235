@@ -1,13 +1,23 @@
 ###############################################################
 # Program:
 #     Assignment 08, Binary Tree
-#     Brother XXXXX, CS235
+#     Brother Kirby, CS235
 # Author:
-#     <your name here>
+#     Garrett Smith & Aiden Reid & Ian Stubbs
 # Summary:
-#     <put a description here>
-# Time:
-#     <how long did it take to complete this program>?
+#     Created a Binary tree node that contains Nodes. Also 
+#     inplemented huffamn code. 
+# Coding Time:
+#     Pair: 8
+#     Garrett: 9
+#     Ian: 3
+#     Aiden: 9
+#
+# The most difficult part:
+#     Aiden: 
+#     Garrett: Getting the recursive functions of the BNode 
+#              code to work correctly.
+#     Ian: figuring out how to store values from the read file. 
 ###############################################################
 
 ##############################################################
@@ -27,4 +37,3 @@ assignment08.o: bnode.h huffman.h assignment08.cpp
 
 huffman.o: bnode.h huffman.h huffman.cpp
 	g++ -c huffman.cpp -g -std=c++11
-
