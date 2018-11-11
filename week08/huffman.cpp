@@ -121,8 +121,23 @@ void huffman(const string & fileName)
 	addLeft(tempParent, tempOne);
 	addRight(tempParent, tempTwo);
 
-	
+	vector<BNode<custom::pair<float, string>>> nodes;
 
+	for (int i = 0; i < pairs.size(); i++) {
+		nodes.push_back(BNode<custom::pair<float, string>>(pairs[order[i]]));
+	}
+
+	int sumValues = 0;
+	for (int i = 0; i < nodes.size(); i++) {
+		sumValues += sumOfNode(node[i]);
+		cout << nodes[i].data.getFirst() << " ";
+	}
+
+	while (true) {
+		//check if sum of new node == sumValues, break
+		BNode<custom::pair<float, string>> *tempLowOne = new BNode<custom::pair<float, string>>();
+		BNode<custom::pair<float, string>> *tempLowTwo = new BNode<custom::pair<float, string>>();
+	}
 
 
 
