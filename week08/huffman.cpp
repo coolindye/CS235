@@ -32,7 +32,7 @@ using namespace custom;
  *******************************************/
 void huffman(const string & fileName)
 {
-	BNode *root = NULL;
+	//BNode *root = NULL;
 
     vector <BNode <pair <string, float> > *> pairs;
     ifstream fin(fileName);
@@ -50,14 +50,14 @@ void huffman(const string & fileName)
     {
     	//                          first   second
         pair<string, float> current(letter, number);
-        BNode<pairs<string, float> > * tempNode;
+        BNode<pair<string, float> > * tempNode;
         tempNode = new BNode<pair<string, float> > (current);
-        pair.push_back(tempNode);
+        pairs.push_back(tempNode);
     }
 
-    for (vector<BNode*>::iterator it = pairs.begin(); it != pairs.end(); it++) {
+    //for (vector<BNode*>::iterator it = pairs.begin(); it != pairs.end(); it++) {
     	
-    }
+    //}
 
 
    return;
