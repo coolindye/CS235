@@ -116,7 +116,7 @@ void huffman(const string & fileName)
 	BNode<custom::pair<float, string>> *tempOne = new BNode<custom::pair<float, string>>(pairs[order[0]]);
 	BNode<custom::pair<float, string>> *tempTwo = new BNode<custom::pair<float, string>>(pairs[order[0]]);
 	BNode<custom::pair<float, string>> *tempParent;
-	addLeft(tempParent, tempOne);
+	addRight(tempParent, tempOne);
 	//tempParent->pRight = tempTwo;
 
 	cout << sumOfNode(tempOne) << " sum of node " << endl;
