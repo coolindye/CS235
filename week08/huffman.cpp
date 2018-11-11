@@ -28,13 +28,61 @@ using namespace custom;
 using namespace std;
 using namespace custom;
 
+vector<int> blacklist;
+vector<int> order;
+
+bool notBlacklisted(int index) {
+	for (int i = 0; i < blacklist.size(); i++) {
+		if (index == blacklist[i])
+			return false;
+	}
+	return true;
+}
+
+int getLowest(vector<custom::pair<float, string>> pairs) {
+    int index = 0;
+    int i;
+    for (i = 0; i < pairs.size(); i++) {
+        if ((pairs[i].getFirst() < pairs[index].getFirst()) && notBlacklisted(i))
+        {
+            index = i;
+        }
+        if (blacklist.size()+1 == pairs.size()) 
+        {
+        	index = i;
+        }
+
+    }
+
+    if (notBlacklisted(index))
+    	blacklist.push_back(index);
+    return index;
+}
+
+double sumOfNode(BNode<custom::pair<float, string>> *node) 
+{
+	double sum = 0;
+	if (node->pLeft != NULL) 
+	{
+		cout << "left";
+		sum += sumOfNode(node->pLeft);
+	}
+	if (node->pRight != NULL) 
+	{
+		cout << "right";
+		sum += sumOfNode(node->pRight);
+	}
+	//cout << node->data.getFirst();
+	return node->data.getFirst();
+}
+
 /*******************************************
  * HUFFMAN
  * Driver program to exercise the huffman generation code
  *******************************************/
 void huffman(const string & fileName)
 {
-	//BNode *root = NULL;
+	//BNode<custom::pair<float, string>> *root = NULL;
 	string word;
 	float freq;
     vector <custom::pair <float, string>> pairs;
@@ -56,9 +104,24 @@ void huffman(const string & fileName)
 		myfile.close();
 	}
 
-    //for (vector<BNode*>::iterator it = pairs.begin(); it != pairs.end(); it++) {
-    	
-    //}
+	for (int i = 0; i < pairs.size(); i++) {
+		int nextLowest = getLowest(pairs);
+		order.push_back(nextLowest);
+	}
+
+	for (int i = 0; i < order.size(); i++) {
+		//cout << order[i] << " " << pairs[order[i]].getFirst() << " " << pairs[order[i]].getSecond() << endl;
+	}
+
+	BNode<custom::pair<float, string>> *tempOne = new BNode<custom::pair<float, string>>(pairs[order[0]]);
+	BNode<custom::pair<float, string>> *tempTwo = new BNode<custom::pair<float, string>>(pairs[order[0]]);
+	BNode<custom::pair<float, string>> *tempParent;
+	addLeft(tempParent, tempOne);
+	//tempParent->pRight = tempTwo;
+
+	cout << sumOfNode(tempOne) << " sum of node " << endl;
+
+
 
 
    return;
