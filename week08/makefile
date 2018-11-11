@@ -14,7 +14,8 @@
 #     Aiden: 9
 #
 # The most difficult part:
-#     Aiden: 
+#     Aiden: adding the nodes to a sorted tree and comparing
+#            them to get there
 #     Garrett: Getting the recursive functions of the BNode 
 #              code to work correctly.
 #     Ian: figuring out how to store values from the read file. 
