@@ -25,6 +25,8 @@ using std::endl;
 using std::string;
 using std::bad_alloc;
 using namespace custom;
+using namespace std;
+using namespace custom;
 
 /*******************************************
  * HUFFMAN
@@ -33,27 +35,26 @@ using namespace custom;
 void huffman(const string & fileName)
 {
 	//BNode *root = NULL;
+	string word;
+	float freq;
+    vector <custom::pair <float, string>> pairs;
+    ifstream myfile(fileName);
 
-    vector <BNode <pair <string, float> > *> pairs;
-    ifstream fin(fileName);
-
-    if (fin.fail())
+    if (myfile.fail())
     {
         cout << "Error reading file \"" << fileName << "\"\n";
         return;
     }
 
-    string letter;
-    float number;
-
-    while (fin >> letter >> number)
-    {
-    	//                          first   second
-        pair<string, float> current(letter, number);
-        BNode<pair<string, float> > * tempNode;
-        tempNode = new BNode<pair<string, float> > (current);
-        pairs.push_back(tempNode);
-    }
+	if (myfile.is_open())
+	{
+		while (myfile >> word)
+		{
+			myfile >> freq;
+			pairs.push_back(custom::pair<float, string>(freq, word));
+		}
+		myfile.close();
+	}
 
     //for (vector<BNode*>::iterator it = pairs.begin(); it != pairs.end(); it++) {
     	
