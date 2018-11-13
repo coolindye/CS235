@@ -25,6 +25,58 @@ using std::endl;
 using std::string;
 using std::bad_alloc;
 using namespace custom;
+using namespace std;
+using namespace custom;
+
+vector<int> blacklist;
+vector<int> order;
+
+bool notBlacklisted(int index) {
+	for (int i = 0; i < blacklist.size(); i++) {
+		if (index == blacklist[i])
+			return false;
+	}
+	return true;
+}
+
+int getLowest(vector<custom::pair<float, string>> pairs) {
+    int index = 0;
+    int i;
+    for (i = 0; i < pairs.size(); i++) {
+        if ((pairs[i].getFirst() < pairs[index].getFirst()) && notBlacklisted(i))
+        {
+            index = i;
+        }
+        if (blacklist.size()+1 == pairs.size()) 
+        {
+        	index = i;
+        }
+
+    }
+
+    if (notBlacklisted(index))
+    	blacklist.push_back(index);
+    return index;
+}
+
+double sumOfNode(BNode<custom::pair<float, string>> *node) 
+{
+	double sum = 0;
+	if (node->pLeft != NULL) 
+	{
+		cout << "left";
+		sum += sumOfNode(node->pLeft);
+	}
+	if (node->pRight != NULL) 
+	{
+		cout << "right";
+		sum += sumOfNode(node->pRight);
+	}
+	if (node->pRight == NULL && node->pLeft == NULL)
+		return node->data.getFirst();
+	else
+		return sum;
+}
 
 /*******************************************
  * HUFFMAN
@@ -32,25 +84,61 @@ using namespace custom;
  *******************************************/
 void huffman(const string & fileName)
 {
-    vector <BNode <custom::pair <std::string, float> > *> pair;
-    ifstream fin(fileName);
+	//BNode<custom::pair<float, string>> *root = NULL;
+	string word;
+	float freq;
+    vector <custom::pair <float, string>> pairs;
+    ifstream myfile(fileName);
 
-    if (fin.fail())
+    if (myfile.fail())
     {
         cout << "Error reading file \"" << fileName << "\"\n";
         return;
     }
 
-    string letter;
-    float number;
+	if (myfile.is_open())
+	{
+		while (myfile >> word)
+		{
+			myfile >> freq;
+			pairs.push_back(custom::pair<float, string>(freq, word));
+		}
+		myfile.close();
+	}
 
-    while (fin >> letter >> number)
-    {
-        custom::pair <std::string, float> current(letter, number);
-        BNode <custom::pair <std::string, float> > * tempNode;
-        tempNode = new BNode <custom::pair<std::string, float> > (current);
-        pair.push_back(tempNode);
-    }
+	for (int i = 0; i < pairs.size(); i++) {
+		int nextLowest = getLowest(pairs);
+		order.push_back(nextLowest);
+	}
+
+	for (int i = 0; i < order.size(); i++) {
+		//cout << order[i] << " " << pairs[order[i]].getFirst() << " " << pairs[order[i]].getSecond() << endl;
+	}
+
+	BNode<custom::pair<float, string>> *tempOne = new BNode<custom::pair<float, string>>(pairs[order[0]]);
+	BNode<custom::pair<float, string>> *tempTwo = new BNode<custom::pair<float, string>>(pairs[order[0]]);
+	BNode<custom::pair<float, string>> *tempParent = new BNode<custom::pair<float, string>>();
+	addLeft(tempParent, tempOne);
+	addRight(tempParent, tempTwo);
+
+	vector<BNode<custom::pair<float, string>>> nodes;
+
+	for (int i = 0; i < pairs.size(); i++) {
+		nodes.push_back(BNode<custom::pair<float, string>>(pairs[order[i]]));
+	}
+
+	int sumValues = 0;
+	for (int i = 0; i < nodes.size(); i++) {
+		sumValues += sumOfNode(node[i]);
+		cout << nodes[i].data.getFirst() << " ";
+	}
+
+	while (true) {
+		//check if sum of new node == sumValues, break
+		BNode<custom::pair<float, string>> *tempLowOne = new BNode<custom::pair<float, string>>();
+		BNode<custom::pair<float, string>> *tempLowTwo = new BNode<custom::pair<float, string>>();
+	}
+
 
 
    return;
