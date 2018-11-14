@@ -27,7 +27,7 @@ namespace custom
 			node* pParent;
 			bool isRed;
 
-			node() : data(T()), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+			node() : data(NULL), pLeft(NULL), pRight(NULL), pParent(NULL) {}
 			node(T value) : data(value), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true) {}
 			node(T value, node* parent) : data(value), pLeft(NULL), pRight(NULL), pParent(parent), isRed(true) {}
 		};
@@ -232,7 +232,7 @@ namespace custom
 			}
 		};
 
-		BST() : root(NULL) {}
+		BST() : root(NULL), numElements(0) {}
 		BST(BST<T> & rhs) throw (const char *);
 		BST<T> & operator = (const BST<T> &  rhs);
 		~BST() { clear(); }
@@ -244,12 +244,20 @@ namespace custom
 		void insert(T t);
 
 		iterator begin();
-		iterator end() { return NULL; }
+		iterator end() 
+		{
+			iterator temp(NULL);
+			return temp; 
+		}
 		iterator rbegin();
-		iterator rend() { return NULL; }
+		iterator rend() 
+		{ 
+			iterator temp(NULL);
+			return temp; 
+		}
 
 	private:
-		node *root = NULL;
+		node *root;
 		int numElements;
 
 		void privateDeleteBTree(node*& root);
@@ -459,7 +467,7 @@ namespace custom
 	template<class T>
 	void BST<T>::insert(T t)
 	{
-		privateInsert(t, root);
+		privateInsert(t, this->root);
 		numElements++;
 	}
 
@@ -502,7 +510,11 @@ namespace custom
 	template<class T>
 	typename BST<T>::iterator BST<T>::begin()
 	{
-		if (root == NULL) return NULL;
+		if (this->root == NULL)
+		{
+			iterator temp(NULL);
+			return temp;
+		}
 
 		node* temp = root;
 		while (temp->pLeft != NULL) temp = temp->pLeft;
@@ -518,7 +530,11 @@ namespace custom
 	template<class T>
 	typename BST<T>::iterator BST<T>::rbegin()
 	{
-		if (root == NULL) return NULL;
+		if (this->root == NULL)
+		{
+			iterator temp(NULL);
+			return temp;
+		}
 
 		node* temp = root;
 		while (temp->pRight != NULL) temp = temp->pRight;
