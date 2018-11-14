@@ -69,7 +69,7 @@ namespace custom
 
 			bool operator == (const iterator & rhs) { return (p == rhs.p); }
 			bool operator != (const iterator & rhs) { return (p != rhs.p); }
-
+			node* getNode() { return p; }
 			const T & operator * () const { return p->data; }
 
 
@@ -265,14 +265,14 @@ namespace custom
 		}
 
 	private:
-		node *root;
+		node* root;
 		int numElements;
 
 		void privateDeleteBTree(node*& root);
 		void privateErase(node*& root);
 		node* privateCopyBTree(const node* root) throw (const char *);
 		void privateInsert(T t, node*& root);
-		iterator privateFind(T t, node* root);
+		node* privateFind(T t, node* root);
 
 	};
 
@@ -525,7 +525,8 @@ namespace custom
 	template<class T>
 	void BST<T>::erase(iterator & it)
 	{
-		privateErase(*it);
+		node* root = it.getNode();
+		privateErase(root);
 	}
 
 
@@ -537,7 +538,106 @@ namespace custom
 	template<class T>
 	void BST<T>::privateErase(node*& root)
 	{
-		privateErase(*it);
+		if (root == NULL) return;
+		//no child
+		if (root->pLeft == NULL && root->pRight == NULL)
+		{
+			if (root->pParent != NULL)
+			{
+				if (root->pParent->pLeft == root)
+				{
+					root->pParent->pLeft = nullptr;
+					root->pParent = nullptr;
+				}
+				if (root->pParent->pRight == root)
+				{
+					root->pParent->pRight = nullptr;
+					root->pParent = nullptr;
+				}
+			}
+			root->data = NULL;
+		}
+		//one child
+		else if (root->pLeft == NULL && root->pRight != NULL 
+					|| root->pLeft != NULL && root->pRight == NULL)
+		{
+			if (root->pParent != NULL)
+			{ 
+				if (root->pLeft != NULL)
+				{
+					if (root == root->pParent->pLeft)
+					{
+						root->pParent->pLeft = root->pLeft;
+					}
+					if (root == root->pParent->pRight)
+					{
+						root->pParent->pRight = root->pLeft;
+					}
+					root->pLeft->pParent = root->pParent;
+					root->pParent = NULL;
+					root->pLeft = NULL;
+				}
+				if (root->pRight != NULL)
+				{
+					if (root == root->pParent->pLeft)
+					{
+						root->pParent->pLeft = root->pRight;
+					}
+					if (root == root->pParent->pRight)
+					{
+						root->pParent->pRight = root->pRight;
+					}
+					root->pRight->pParent = root->pParent;
+					root->pParent = NULL;
+					root->pRight = NULL;
+				}
+			}
+			root->data = NULL;
+		}
+		//two children
+		else if (root->pLeft != NULL && root->pRight != NULL)
+		{
+			node* b = root->pRight;
+			while (b->pLeft != NULL) b = b->pLeft;
+			if (b->pRight != NULL)
+			{
+				b->pParent->pLeft = b->pRight;
+				b->pRight->pParent = b->pParent;
+			}
+			else
+			{
+				b->pParent->pLeft = NULL;
+			}
+			b->pRight = root->pRight;
+			root->pRight->pParent = b;
+			b->pLeft = root->pLeft;
+			root->pLeft->pParent = b;
+			b->pParent = root->pParent;
+			if (root->pParent != NULL)
+			{
+				if (root == root->pParent->pLeft)
+				{
+					root->pParent->pLeft = b;
+				}
+				if (root == root->pParent->pRight)
+				{
+					root->pParent->pRight = b;
+				}
+				root->pParent = NULL;
+				root->pLeft = NULL;
+				root->pRight = NULL;
+				root->data = NULL;
+
+			}
+			else
+			{
+				root->pParent = b->pParent;
+				root->pLeft = b->pLeft;
+				root->pRight = b->pRight;
+				root->data = b->data;
+			}
+
+		}
 	}
 
 	/******************************************************
@@ -548,8 +648,9 @@ namespace custom
 	template<class T>
 	typename BST<T>::iterator BST<T>::find(T t)
 	{
-		iterator temp = privateFind(t, this->root);
-		return temp;
+		node* temp = privateFind( t, this->root);
+		iterator tempI(temp);
+		return tempI;
 	}
 
 	/******************************************************
@@ -558,22 +659,22 @@ namespace custom
 	*
 	*********************************************************/
 	template<class T>
-	typename BST<T>::iterator BST<T>::privateFind(T t, node* root)
+	typename BST<T>::node* BST<T>::privateFind(T t, node* root)
 	{
 		iterator temp();
 		if (root == NULL || t == root->data)
 		{
-			temp = root;
+			return root;
 		}
 		else if (t < root->data)
 		{
-			temp = privateFind(t, root->pLeft);
+			return privateFind(t, root->pLeft);
 		}
 		else if (t > root->data)
 		{
-			temp = privateFind(t, root->pRight);
+			return privateFind(t, root->pRight);
 		}
-		return temp;
+		return root;
 	}
 
 	/******************************************************
