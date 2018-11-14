@@ -61,11 +61,17 @@ namespace custom
 				p = rhs.p;
 				return *this;
 			}
+			iterator & operator = (const node* p)
+			{
+				this->p = p;
+				return *this;
+			}
 
 			bool operator == (const iterator & rhs) { return (p == rhs.p); }
 			bool operator != (const iterator & rhs) { return (p != rhs.p); }
 
 			const T & operator * () const { return p->data; }
+
 
 			//prefix increment
 			iterator & operator ++ ()
@@ -242,6 +248,8 @@ namespace custom
 
 		void clear();
 		void insert(T t);
+		void erase(iterator & it);
+		iterator find(T t);
 
 		iterator begin();
 		iterator end() 
@@ -261,8 +269,10 @@ namespace custom
 		int numElements;
 
 		void privateDeleteBTree(node*& root);
+		void privateErase(node*& root);
 		node* privateCopyBTree(const node* root) throw (const char *);
 		void privateInsert(T t, node*& root);
+		iterator privateFind(T t, node* root);
 
 	};
 
@@ -471,6 +481,11 @@ namespace custom
 		numElements++;
 	}
 
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
 	template<class T>
 	void BST<T>::privateInsert(T t, node*& root)
 	{
@@ -500,6 +515,65 @@ namespace custom
 				root->pRight = new node(t, root);
 			}
 		}
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::erase(iterator & it)
+	{
+		privateErase(*it);
+	}
+
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::privateErase(node*& root)
+	{
+		privateErase(*it);
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	typename BST<T>::iterator BST<T>::find(T t)
+	{
+		iterator temp = privateFind(t, this->root);
+		return temp;
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	typename BST<T>::iterator BST<T>::privateFind(T t, node* root)
+	{
+		iterator temp();
+		if (root == NULL || t == root->data)
+		{
+			temp = root;
+		}
+		else if (t < root->data)
+		{
+			temp = privateFind(t, root->pLeft);
+		}
+		else if (t > root->data)
+		{
+			temp = privateFind(t, root->pRight);
+		}
+		return temp;
 	}
 
 	/******************************************************
