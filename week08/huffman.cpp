@@ -78,6 +78,27 @@ double sumOfNode(BNode<custom::pair<float, string>> *node)
 		return sum;
 }
 
+void orderPairs(vector <custom::pair <float, string>> &pairs)
+{
+	vector <custom::pair <float, string>> temp(pairs);
+	for (int i = 0; i < temp.size(); i++)
+	{
+		custom::pair <float, string> tempP(temp[0]);
+		for (int i = 0; i < temp.size(); i++)
+		{
+			if (temp[i] < tempP) tempP = temp[i];
+		}
+	}
+	pairs = temp;
+}
+
+void getHuffman(vector <custom::pair <float, string>> &pairs, 
+	BNode <custom::pair<float, string>>* &tree)
+{
+	BNode <custom::pair<float, string>>* tree2 = new BNode <custom::pair<float, string>>;
+	if (tree->data >)
+}
+
 /*******************************************
  * HUFFMAN
  * Driver program to exercise the huffman generation code
@@ -106,38 +127,10 @@ void huffman(const string & fileName)
 		myfile.close();
 	}
 
-	for (int i = 0; i < pairs.size(); i++) {
-		int nextLowest = getLowest(pairs);
-		order.push_back(nextLowest);
-	}
+	orderPairs(pairs);
 
-	for (int i = 0; i < order.size(); i++) {
-		//cout << order[i] << " " << pairs[order[i]].getFirst() << " " << pairs[order[i]].getSecond() << endl;
-	}
-
-	BNode<custom::pair<float, string>> *tempOne = new BNode<custom::pair<float, string>>(pairs[order[0]]);
-	BNode<custom::pair<float, string>> *tempTwo = new BNode<custom::pair<float, string>>(pairs[order[0]]);
-	BNode<custom::pair<float, string>> *tempParent = new BNode<custom::pair<float, string>>();
-	addLeft(tempParent, tempOne);
-	addRight(tempParent, tempTwo);
-
-	vector<BNode<custom::pair<float, string>>> nodes;
-
-	for (int i = 0; i < pairs.size(); i++) {
-		nodes.push_back(BNode<custom::pair<float, string>>(pairs[order[i]]));
-	}
-
-	int sumValues = 0;
-	for (int i = 0; i < nodes.size(); i++) {
-		sumValues += sumOfNode(node[i]);
-		cout << nodes[i].data.getFirst() << " ";
-	}
-
-	while (true) {
-		//check if sum of new node == sumValues, break
-		BNode<custom::pair<float, string>> *tempLowOne = new BNode<custom::pair<float, string>>();
-		BNode<custom::pair<float, string>> *tempLowTwo = new BNode<custom::pair<float, string>>();
-	}
+	BNode <custom::pair<float, string>> * hTree = 
+		new BNode <custom::pair<float, string>>(getHuffman(pairs));
 
 
 

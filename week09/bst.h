@@ -10,256 +10,521 @@
 
 #ifndef BST_H
 #define BST_H
+using namespace std;
 
 namespace custom
 {
+	template <class T>
+	class BST
+	{
+	public:
+		class node
+		{
+		public:
+			T data;
+			node* pLeft;
+			node* pRight;
+			node* pParent;
+			bool isRed;
 
-    //template <class T>
-    //class BNode
-    //{
-    //public:
-    //    T data;
-    //    BNode * pLeft;
-    //    BNode * pRight;
-    //    BNode * pParent;
-    //    bool isRed;
+			node() : data(T()), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+			node(T value) : data(value), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true) {}
+			node(T value, node* parent) : data(value), pLeft(NULL), pRight(NULL), pParent(parent), isRed(true) {}
+		};
 
-    //    BNode() : pLeft(NULL), pRight(NULL), pParent(NULL) {}
-    //    BNode(T value) : data(value), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true) {}
-    //    
+		class iterator
+		{
+		private:
+			node* p;
 
-    //private:
-    //    //verifyRB(int depth);
-    //    //verifyBST();
-    //    //balance();
-    //};
+			//Check if node is a right node
+			bool isRightNode(node* nodeR)
+			{
+				if (nodeR->pParent != NULL)
+					return( nodeR == nodeR->pParent->pRight );
+				return false;
+			}
+			//Check if node is a left node
+			bool isLeftNode(node* nodeL)
+			{
+				if (nodeL->pParent != NULL)
+					return(nodeL == nodeL->pParent->pLeft);
+				return false;
+			}
+
+		public:
+			iterator() : p(NULL) {}
+			iterator(node* p) : p(p) {}
+			iterator(iterator & rhs) : p(rhs.p) {}
+			iterator & operator = (const iterator & rhs) 
+			{ 
+				p = rhs.p;
+				return *this;
+			}
+
+			bool operator == (const iterator & rhs) { return (p == rhs.p); }
+			bool operator != (const iterator & rhs) { return (p != rhs.p); }
+
+			const T & operator * () const { return p->data; }
+
+			//prefix increment
+			iterator & operator ++ ()
+			{
+				// do nothing if we have nothing
+				if (p == NULL)
+					return *this;
+
+				// if there is a right node, take it and do magic
+				else if (p->pRight != NULL)
+				{
+					p = p->pRight;
+					while (p->pLeft != NULL) p = p->pLeft;
+				}
+				// if there is a parent node, take it if left node and do magic if right node
+				else if (p->pParent != NULL)
+				{
+					if (isLeftNode(p)) p = p->pParent;
+
+					else
+					{
+						while (isRightNode(p))
+						{
+							p = p->pParent;
+							if (p->pParent == NULL)
+							{
+								p = NULL;
+								break;
+							}
+							else if (isLeftNode(p))
+							{
+								p = p->pParent;
+								break;
+							}
+						}
+					}
+				}
+				
+				return *this;
+			}
+
+			// postfix increment
+			iterator operator ++ (int postfix)
+			{
+				iterator tmp(*this);
+
+				// do nothing if we have nothing
+				if (p == NULL)
+					return *this;
+
+				// if there is a right node, take it and do magic
+				else if (p->pRight != NULL)
+				{
+					p = p->pRight;
+					while (p->pLeft != NULL) p = p->pLeft;
+				}
+				// if there is a parent node, take it if left node and do magic if right node
+				else if (p->pParent != NULL)
+				{
+					if (isLeftNode(p)) p = p->pParent;
+					else
+					{
+						while (isRightNode(p))
+						{
+							p = p->pParent;
+							if (p->pParent == NULL)
+							{
+								p = NULL;
+								break;
+							}
+							else if (isLeftNode(p))
+							{
+								p = p->pParent;
+								break;
+							}
+						}
+					}
+
+				}
+
+				return tmp;
+			}
+
+			//prefix decrement
+			iterator & operator -- ()
+			{
+				// do nothing if we have nothing
+				if (p == NULL)
+					return *this;
+
+				// if there is a right node, take it and do magic
+				else if (p->pLeft != NULL)
+				{
+					p = p->pLeft;
+					while (p->pRight != NULL) p = p->pRight;
+				}
+				// if there is a parent node, take it if left node and do magic if right node
+				else if (p->pParent != NULL)
+				{
+					if (isRightNode(p)) p = p->pParent;
+
+					else
+					{
+						while (isLeftNode(p))
+						{
+							p = p->pParent;
+							if (p->pParent == NULL)
+							{
+								p = NULL;
+								break;
+							}
+							else if (isRightNode(p))
+							{
+								p = p->pParent;
+								break;
+							}
+						}
+					}
+				}
+
+				return *this;
+			}
+
+			// postfix decrement
+			iterator operator -- (int postfix)
+			{
+				iterator tmp(*this);
+
+				// do nothing if we have nothing
+				if (p == NULL)
+					return *this;
+
+				// if there is a right node, take it and do magic
+				else if (p->pLeft != NULL)
+				{
+					p = p->pLeft;
+					while (p->pRight != NULL) p = p->pRight;
+				}
+				// if there is a parent node, take it if left node and do magic if right node
+				else if (p->pParent != NULL)
+				{
+					if (isRightNode(p)) p = p->pParent;
+
+					else
+					{
+						while (isLeftNode(p))
+						{
+							p = p->pParent;
+							if (p->pParent == NULL)
+							{
+								p = NULL;
+								break;
+							}
+							else if (isRightNode(p))
+							{
+								p = p->pParent;
+								break;
+							}
+						}
+					}
+				}
+
+				return tmp;
+			}
+		};
+
+		BST() : root(NULL) {}
+		BST(BST<T> & rhs) throw (const char *);
+		BST<T> & operator = (const BST<T> &  rhs);
+		~BST() { clear(); }
+
+		int size() const { return numElements; }
+		bool empty() { return (numElements == 0 ? true : false); }
+
+		void clear();
+		void insert(T t);
+
+		iterator begin();
+		iterator end() { return NULL; }
+		iterator rbegin();
+		iterator rend() { return NULL; }
+
+	private:
+		node *root = NULL;
+		int numElements;
+
+		void privateDeleteBTree(node*& root);
+		node* privateCopyBTree(const node* root) throw (const char *);
+		void privateInsert(T t, node*& root);
+
+	};
 
 
-    template <class T>
-    class BST
-    {
-    public:
 
+	/**************************************************
+	 * BST ITERATOR :: DECREMENT PREFIX
+	 *     advance by one.
+	 * Author:      Br. Helfrich
+	 * Performance: O(log n) though O(1) in the common case
+	 *************************************************
+	template <class T>
+	typename BST <T> :: iterator & BST <T> :: iterator :: operator -- ()
+	{
+	   // do nothing if we have nothing
+	   if (NULL == pNode)
+		  return *this;
 
+	   // if there is a left node, take it
+	   if (NULL != pNode->pLeft)
+	   {
+		  // go left
+		  pNode = pNode->pLeft;
 
-        static class BNode
-        {
-        public:
-            T data;
-            BNode * pLeft;
-            BNode * pRight;
-            BNode * pParent;
-            bool isRed;
+		  // jig right - there might be more right-most children
+		  while (pNode->pRight)
+			 pNode = pNode->pRight;
+		  return *this;
+	   }
 
-            BNode() : pLeft(NULL), pRight(NULL), pParent(NULL) {}
-            BNode(T value) : data(value), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true) {}
+	   // there are no left children, the right are done
+	   assert(NULL == pNode->pLeft);
+	   BNode * pSave = pNode;
 
+	   // go up
+	   pNode = pNode->pParent;
 
-        private:
-            //verifyRB(int depth);
-            //verifyBST();
-            //balance();
-        };
+	   // if the parent is the NULL, we are done!
+	   if (NULL == pNode)
+		  return *this;
 
+	   // if we are the right-child, got to the parent.
+	   if (pSave == pNode->pRight)
+		  return *this;
 
+	   // we are the left-child, go up as long as we are the left child!
+	   while (NULL != pNode && pSave == pNode->pLeft)
+	   {
+		  pSave = pNode;
+		  pNode = pNode->pParent;
+	   }
 
-        BST() : root(NULL) {}
-        BST(BST<T> & rhs) throw (const char *);
-        ~BST() { /*deleteBTree(root);*/ }
+	   return *this;
+	}*/
 
-        BST & operator = (const BST <T> & rhs);
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	BST<T>::BST(BST<T>& rhs) throw(const char *)
+	{
+		this->numElements = rhs.numElements;
+		this->root = privateCopyBTree(rhs.root);
+	}
 
-        int size() const { return numElements; }
-        bool empty() { return (numElements == 0 ? true : false); }
-    private:
-        BNode *root = NULL;
-        int numElements;
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	BST<T> & BST<T>::operator=(const BST<T>& rhs)
+	{
+		this->numElements = rhs.numElements;
+		this->root = privateCopyBTree(rhs.root);
 
-        //void deleteBTree(BNode * & pNode);
-        BNode * copyBTree(const BNode * head) throw (const char *);
+		return *this;
+	}
 
-    };
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::clear()
+	{
+		privateDeleteBTree(this->root);
+		this->numElements = 0;
+	}
 
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::privateDeleteBTree(node *& root)
+	{
+		try
+		{
+			if (root == NULL) return;
+			if (root->pLeft != NULL)
+			{
+				root->pLeft->pParent = nullptr;
+				privateDeleteBTree(root->pLeft);
+				root->pLeft = nullptr;
+			}
+			if (root->pRight != NULL)
+			{
+				root->pRight->pParent = nullptr;
+				privateDeleteBTree(root->pRight);
+				root->pRight = nullptr;
+			}
 
-   
-/**************************************************
- * BST ITERATOR :: DECREMENT PREFIX
- *     advance by one. 
- * Author:      Br. Helfrich
- * Performance: O(log n) though O(1) in the common case
- *************************************************
-template <class T>
-typename BST <T> :: iterator & BST <T> :: iterator :: operator -- ()
-{
-   // do nothing if we have nothing
-   if (NULL == pNode)
-      return *this;
+			// This section is so that the calling of this method 
+			// on any node ensures the deletion of every node in
+			// the tree, ancestor or descendent
+			if (root->pParent != NULL)
+			{
+				if (root->pParent->pLeft == root)
+				{
+					root->pParent->pLeft = nullptr;
+					privateDeleteBTree(root->pParent);
+					root->pParent = nullptr;
+				}
+				if (root->pParent->pRight == root)
+				{
+					root->pParent->pRight = nullptr;
+					privateDeleteBTree(root->pParent);
+					root->pParent = nullptr;
+				}
+			}
+			root = NULL;
+		}
+		catch (const bad_alloc & e)
+		{
+			cout << "Unable to allocate a node" << endl;
+		}
+	}
 
-   // if there is a left node, take it
-   if (NULL != pNode->pLeft)
-   {
-      // go left
-      pNode = pNode->pLeft;
+	/*****************************************************
+	* Function: COPY BTREE
+	* Description: Copy a Binary Tree. Takes a pointer to
+	*  a BNode as a parameter and returns a newly created
+	*  Binary Tree containing a copy of all the BNodes
+	*  below the BNode represented by the parameter.
+	*
+	* Input:
+	*  const BNode *head - pointer to start of Binary Tree
+	*
+	* Output:
+	*  BNode * - pointer to start of new list
+	*****************************************************/
+	template<class T>
+	typename BST<T>::node* BST<T>::privateCopyBTree(const node * root) throw(const char *)
+	{
+		try
+		{
+			//Only copy from the node provided down, allows for the creation of subtrees with this method
+			if (root != NULL)
+			{
+				BST<T>::node* newNode = new BST<T>::node(root->data);
+				if (root->pLeft != NULL)
+				{
+					newNode->pLeft = privateCopyBTree(root->pLeft);
 
-      // jig right - there might be more right-most children
-      while (pNode->pRight)
-         pNode = pNode->pRight;
-      return *this;
-   }
+					// Not strictly necessary because of root->pLeft check
+					if (newNode->pLeft != NULL)
+						newNode->pLeft->pParent = newNode;
+				}
+				if (root->pRight != NULL)
+				{
+					newNode->pRight = privateCopyBTree(root->pRight);
 
-   // there are no left children, the right are done
-   assert(NULL == pNode->pLeft);
-   BNode * pSave = pNode;
+					// Same as above comment, this if statement is just to make
+					// sure there are no assignment issues in the last line
+					// that could cause a crash
+					if (newNode->pRight != NULL)
+						newNode->pRight->pParent = newNode;
+				}
 
-   // go up
-   pNode = pNode->pParent;
+				return newNode;
+			}
 
-   // if the parent is the NULL, we are done!
-   if (NULL == pNode)
-      return *this;
+			return NULL;
 
-   // if we are the right-child, got to the parent.
-   if (pSave == pNode->pRight)
-      return *this;
+		}
+		catch (std::bad_alloc & e)
+		{
+			cout << "Unable to allocate a node" << endl;
+		}
+	}
 
-   // we are the left-child, go up as long as we are the left child!
-   while (NULL != pNode && pSave == pNode->pLeft)
-   {
-      pSave = pNode;
-      pNode = pNode->pParent;
-   }
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::insert(T t)
+	{
+		privateInsert(t, root);
+		numElements++;
+	}
 
-   return *this;
-}*/
+	template<class T>
+	void BST<T>::privateInsert(T t, node*& root)
+	{
+		if (root == NULL)
+		{
+			root = new node(t);
+		}
+		else if (t < root->data)
+		{
+			if (root->pLeft != NULL)
+			{
+				privateInsert(t, root->pLeft);
+			}
+			else
+			{
+				root->pLeft = new node(t, root);
+			}
+		}
+		else if (t > root->data)
+		{
+			if (root->pRight != NULL)
+			{
+				privateInsert(t, root->pRight);
+			}
+			else
+			{
+				root->pRight = new node(t, root);
+			}
+		}
+	}
 
-/******************************************************
-*
-*
-*
-*********************************************************/
-template<class T>
-BST<T>::BST(BST<T>& rhs) throw(const char *)
-{
-    this->numElements = rhs.numElements;
-    this->root = copyBTree(rhs.root);
-}
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	typename BST<T>::iterator BST<T>::begin()
+	{
+		if (root == NULL) return NULL;
 
-/******************************************************
-*
-*
-*
-*********************************************************/
-template<class T>
-BST<T> & BST<T>::operator=(const BST<T>& rhs)
-{
-    this->numElements = rhs.numElements;
-    this->root = copyBTree(rhs.root);
+		node* temp = root;
+		while (temp->pLeft != NULL) temp = temp->pLeft;
+		iterator tempI(temp);
+		return (tempI);
+	}
 
-    return *this;
-}
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	typename BST<T>::iterator BST<T>::rbegin()
+	{
+		if (root == NULL) return NULL;
 
-/******************************************************
-*
-*
-*
-*********************************************************
-template<class T>
-void BST<T>::deleteBTree(BNode *& pNode)
-{
-    try
-    {
-        if (head->pLeft != NULL)
-        {
-            head->pLeft->pParent = nullptr;
-            deleteBTree(head->pLeft);
-            head->pLeft = nullptr;
-        }
-        if (head->pRight != NULL)
-        {
-            head->pRight->pParent = nullptr;
-            deleteBTree(head->pRight);
-            head->pRight = nullptr;
-        }
-
-        // This section is so that the calling of this method 
-        // on any BNode ensures the deletion of every BNode in
-        // the tree, ancestor or descendent
-        if (head->pParent != NULL)
-        {
-            if (head->pParent->pLeft == head)
-            {
-                head->pParent->pLeft = nullptr;
-                deleteBTree(head->pParent);
-                head->pParent = nullptr;
-            }
-            if (head->pParent->pRight == head)
-            {
-                head->pParent->pRight = nullptr;
-                deleteBTree(head->pParent);
-                head->pParent = nullptr;
-            }
-        }
-        head = NULL;
-    }
-    catch (const bad_alloc & e)
-    {
-        cout << "Unable to allocate a node" << endl;
-    }
-}*/
-
-/*****************************************************
-* Function: COPY BTREE
-* Description: Copy a Binary Tree. Takes a pointer to
-*  a BNode as a parameter and returns a newly created
-*  Binary Tree containing a copy of all the BNodes
-*  below the BNode represented by the parameter.
-*
-* Input:
-*  const BNode *head - pointer to start of Binary Tree
-*
-* Output:
-*  BNode * - pointer to start of new list
-*****************************************************/
-template <class T>
-BST<T>::BNode * BST<T>::copyBTree(const BST<T>::BNode * head) throw(const char *)
-{
-    try
-    {
-        //Only copy from the node provided down, allows for the creation of subtrees with this method
-        if (head != NULL)
-        {
-            BNode <T> * newNode = new BNode <T>(head->data);
-            if (head->pLeft != NULL)
-            {
-                newNode->pLeft = copyBTree(head->pLeft);
-
-                // Not strictly necessary because of head->pLeft check
-                if (newNode->pLeft != NULL)
-                    newNode->pLeft->pParent = newNode;
-            }
-            if (head->pRight != NULL)
-            {
-                newNode->pRight = copyBTree(head->pRight);
-
-                // Same as above comment, this if statement is just to make
-                // sure there are no assignment issues in the last line
-                // that could cause a crash
-                if (newNode->pRight != NULL)
-                    newNode->pRight->pParent = newNode;
-            }
-
-            return newNode;
-        }
-
-        return NULL;
-
-    }
-    catch (std::bad_alloc & e)
-    {
-        cout << "Unable to allocate a node" << endl;
-    }
-}
-
+		node* temp = root;
+		while (temp->pRight != NULL) temp = temp->pRight;
+		iterator tempI(temp);
+		return (tempI);
+	}
 } // namespace custom
 
 #endif // BST_H
