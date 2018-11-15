@@ -562,45 +562,16 @@ namespace custom
 		else if (root->pLeft != NULL && root->pRight != NULL)
 		{
 			BNode* b = root->pRight;
-			while (b->pLeft != NULL) b = b->pLeft;
-			if (b->pRight != NULL)
+			if (b->pLeft != NULL)
 			{
+				while (b->pLeft != NULL) b = b->pLeft;
+			}
+			if (b->pRight != NULL) b->pRight->pParent = b->pParent;
+			if (isLeftChild(b))
 				b->pParent->pLeft = b->pRight;
-				b->pRight->pParent = b->pParent;
-			}
-			else
-			{
-				b->pParent->pLeft = NULL;
-			}
-			b->pRight = root->pRight;
-			root->pRight->pParent = b;
-			b->pLeft = root->pLeft;
-			root->pLeft->pParent = b;
-			b->pParent = root->pParent;
-			if (root->pParent != NULL)
-			{
-				if (root == root->pParent->pLeft)
-				{
-					root->pParent->pLeft = b;
-				}
-				if (root == root->pParent->pRight)
-				{
-					root->pParent->pRight = b;
-				}
-				root->pParent = NULL;
-				root->pLeft = NULL;
-				root->pRight = NULL;
-				root->data = NULL;
-
-			}
-			else
-			{
-				root->pParent = b->pParent;
-				root->pLeft = b->pLeft;
-				root->pRight = b->pRight;
-				root->data = b->data;
-			}
-
+			if (isRightChild(b))
+				b->pParent->pRight = b->pRight;
+			root->data = b->data;
 		}
 	}
 
