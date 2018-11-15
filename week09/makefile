@@ -1,13 +1,16 @@
 ###############################################################
 # Program:
 #     Assignment 09, Binary Search Tree
-#     Brother XXXXX, CS235
+#     Brother Kirby, CS235
 # Author:
-#     <your name here>
+#     Aiden/Garrett/Ian
 # Summary:
 #     <put a description here>
 # Time:
-#     <how long did it take to complete this program?>
+#     Aiden:   2 hours
+#     Garrett: 6 hours
+#     Ian:     x hours
+#     Group:   x hours
 ###############################################################
 
 ##############################################################
@@ -23,4 +26,5 @@ a.out: assignment09.o
 ##############################################################
 assignment09.o: bst.h assignment09.cpp
 	g++ -c assignment09.cpp -g -std=c++11
+
 
