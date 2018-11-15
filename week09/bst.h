@@ -18,50 +18,51 @@ namespace custom
 	class BST
 	{
 	public:
-		class node
+		class BNode
 		{
 		public:
 			T data;
-			node* pLeft;
-			node* pRight;
-			node* pParent;
+			BNode* pLeft;
+			BNode* pRight;
+			BNode* pParent;
 			bool isRed;
 
-			node() : data(NULL), pLeft(NULL), pRight(NULL), pParent(NULL) {}
-			node(T value) : data(value), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true) {}
-			node(T value, node* parent) : data(value), pLeft(NULL), pRight(NULL), pParent(parent), isRed(true) {}
+			BNode() : data(NULL), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true){}
+			BNode(T value) : data(value), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(true) {}
+			BNode(T value, BNode* parent) : data(value), pLeft(NULL), pRight(NULL), pParent(parent), isRed(true) {}
 		};
 
 		class iterator
 		{
+			friend class BST;
 		private:
-			node* p;
+			BNode* p;
 
-			//Check if node is a right node
-			bool isRightNode(node* nodeR)
+			//Check if BNode is a right BNode
+			bool isRightBNode(BNode* BNodeR)
 			{
-				if (nodeR->pParent != NULL)
-					return( nodeR == nodeR->pParent->pRight );
+				if (BNodeR->pParent != NULL)
+					return( BNodeR == BNodeR->pParent->pRight );
 				return false;
 			}
-			//Check if node is a left node
-			bool isLeftNode(node* nodeL)
+			//Check if BNode is a left BNode
+			bool isLeftBNode(BNode* BNodeL)
 			{
-				if (nodeL->pParent != NULL)
-					return(nodeL == nodeL->pParent->pLeft);
+				if (BNodeL->pParent != NULL)
+					return(BNodeL == BNodeL->pParent->pLeft);
 				return false;
 			}
 
 		public:
 			iterator() : p(NULL) {}
-			iterator(node* p) : p(p) {}
+			iterator(BNode* p) : p(p) {}
 			iterator(iterator & rhs) : p(rhs.p) {}
 			iterator & operator = (const iterator & rhs) 
 			{ 
 				p = rhs.p;
 				return *this;
 			}
-			iterator & operator = (const node* p)
+			iterator & operator = (const BNode* p)
 			{
 				this->p = p;
 				return *this;
@@ -69,9 +70,7 @@ namespace custom
 
 			bool operator == (const iterator & rhs) { return (p == rhs.p); }
 			bool operator != (const iterator & rhs) { return (p != rhs.p); }
-			node* getNode() { return p; }
 			const T & operator * () const { return p->data; }
-
 
 			//prefix increment
 			iterator & operator ++ ()
@@ -80,20 +79,20 @@ namespace custom
 				if (p == NULL)
 					return *this;
 
-				// if there is a right node, take it and do magic
+				// if there is a right BNode, take it and do magic
 				else if (p->pRight != NULL)
 				{
 					p = p->pRight;
 					while (p->pLeft != NULL) p = p->pLeft;
 				}
-				// if there is a parent node, take it if left node and do magic if right node
+				// if there is a parent BNode, take it if left BNode and do magic if right BNode
 				else if (p->pParent != NULL)
 				{
-					if (isLeftNode(p)) p = p->pParent;
+					if (isLeftBNode(p)) p = p->pParent;
 
 					else
 					{
-						while (isRightNode(p))
+						while (isRightBNode(p))
 						{
 							p = p->pParent;
 							if (p->pParent == NULL)
@@ -101,7 +100,7 @@ namespace custom
 								p = NULL;
 								break;
 							}
-							else if (isLeftNode(p))
+							else if (isLeftBNode(p))
 							{
 								p = p->pParent;
 								break;
@@ -109,7 +108,9 @@ namespace custom
 						}
 					}
 				}
-				
+				else
+					p = NULL;
+
 				return *this;
 			}
 
@@ -122,19 +123,19 @@ namespace custom
 				if (p == NULL)
 					return *this;
 
-				// if there is a right node, take it and do magic
+				// if there is a right BNode, take it and do magic
 				else if (p->pRight != NULL)
 				{
 					p = p->pRight;
 					while (p->pLeft != NULL) p = p->pLeft;
 				}
-				// if there is a parent node, take it if left node and do magic if right node
+				// if there is a parent BNode, take it if left BNode and do magic if right BNode
 				else if (p->pParent != NULL)
 				{
-					if (isLeftNode(p)) p = p->pParent;
+					if (isLeftBNode(p)) p = p->pParent;
 					else
 					{
-						while (isRightNode(p))
+						while (isRightBNode(p))
 						{
 							p = p->pParent;
 							if (p->pParent == NULL)
@@ -142,7 +143,7 @@ namespace custom
 								p = NULL;
 								break;
 							}
-							else if (isLeftNode(p))
+							else if (isLeftBNode(p))
 							{
 								p = p->pParent;
 								break;
@@ -151,7 +152,8 @@ namespace custom
 					}
 
 				}
-
+				else
+					p = NULL;
 				return tmp;
 			}
 
@@ -162,20 +164,20 @@ namespace custom
 				if (p == NULL)
 					return *this;
 
-				// if there is a right node, take it and do magic
+				// if there is a right BNode, take it and do magic
 				else if (p->pLeft != NULL)
 				{
 					p = p->pLeft;
 					while (p->pRight != NULL) p = p->pRight;
 				}
-				// if there is a parent node, take it if left node and do magic if right node
+				// if there is a parent BNode, take it if left BNode and do magic if right BNode
 				else if (p->pParent != NULL)
 				{
-					if (isRightNode(p)) p = p->pParent;
+					if (isRightBNode(p)) p = p->pParent;
 
 					else
 					{
-						while (isLeftNode(p))
+						while (isLeftBNode(p))
 						{
 							p = p->pParent;
 							if (p->pParent == NULL)
@@ -183,7 +185,7 @@ namespace custom
 								p = NULL;
 								break;
 							}
-							else if (isRightNode(p))
+							else if (isRightBNode(p))
 							{
 								p = p->pParent;
 								break;
@@ -191,7 +193,8 @@ namespace custom
 						}
 					}
 				}
-
+				else
+					p = NULL;
 				return *this;
 			}
 
@@ -204,20 +207,20 @@ namespace custom
 				if (p == NULL)
 					return *this;
 
-				// if there is a right node, take it and do magic
+				// if there is a right BNode, take it and do magic
 				else if (p->pLeft != NULL)
 				{
 					p = p->pLeft;
 					while (p->pRight != NULL) p = p->pRight;
 				}
-				// if there is a parent node, take it if left node and do magic if right node
+				// if there is a parent BNode, take it if left BNode and do magic if right BNode
 				else if (p->pParent != NULL)
 				{
-					if (isRightNode(p)) p = p->pParent;
+					if (isRightBNode(p)) p = p->pParent;
 
 					else
 					{
-						while (isLeftNode(p))
+						while (isLeftBNode(p))
 						{
 							p = p->pParent;
 							if (p->pParent == NULL)
@@ -225,7 +228,7 @@ namespace custom
 								p = NULL;
 								break;
 							}
-							else if (isRightNode(p))
+							else if (isRightBNode(p))
 							{
 								p = p->pParent;
 								break;
@@ -233,7 +236,8 @@ namespace custom
 						}
 					}
 				}
-
+				else
+					p = NULL;
 				return tmp;
 			}
 		};
@@ -249,8 +253,10 @@ namespace custom
 		void clear();
 		void insert(T t);
 		void erase(iterator & it);
-		iterator find(T t);
 
+		BNode* getRoot() { return root; }
+
+		iterator find(T t);
 		iterator begin();
 		iterator end() 
 		{
@@ -265,68 +271,25 @@ namespace custom
 		}
 
 	private:
-		node* root;
+		BNode* root;
 		int numElements;
 
-		void privateDeleteBTree(node*& root);
-		void privateErase(node*& root);
-		node* privateCopyBTree(const node* root) throw (const char *);
-		void privateInsert(T t, node*& root);
-		node* privateFind(T t, node* root);
+		void privateDeleteBTree(BNode*& root);
+		void privateErase(BNode*& root);
+		void privateInsert(T t, BNode*& root);
+		void rotateRight(BNode* rotateBNode);
+		void rotateLeft(BNode* rotateBNode);
+		void validateTree();
+		void validateBNode(BNode*& root);
+
+		bool isValidBNode(BNode* root);
+		bool isRightChild(BNode* root);
+		bool isLeftChild(BNode* root);
+
+		BNode* privateCopyBTree(const BNode* root) throw (const char *);
+		BNode* privateFind(T t, BNode* root);
 
 	};
-
-
-
-	/**************************************************
-	 * BST ITERATOR :: DECREMENT PREFIX
-	 *     advance by one.
-	 * Author:      Br. Helfrich
-	 * Performance: O(log n) though O(1) in the common case
-	 *************************************************
-	template <class T>
-	typename BST <T> :: iterator & BST <T> :: iterator :: operator -- ()
-	{
-	   // do nothing if we have nothing
-	   if (NULL == pNode)
-		  return *this;
-
-	   // if there is a left node, take it
-	   if (NULL != pNode->pLeft)
-	   {
-		  // go left
-		  pNode = pNode->pLeft;
-
-		  // jig right - there might be more right-most children
-		  while (pNode->pRight)
-			 pNode = pNode->pRight;
-		  return *this;
-	   }
-
-	   // there are no left children, the right are done
-	   assert(NULL == pNode->pLeft);
-	   BNode * pSave = pNode;
-
-	   // go up
-	   pNode = pNode->pParent;
-
-	   // if the parent is the NULL, we are done!
-	   if (NULL == pNode)
-		  return *this;
-
-	   // if we are the right-child, got to the parent.
-	   if (pSave == pNode->pRight)
-		  return *this;
-
-	   // we are the left-child, go up as long as we are the left child!
-	   while (NULL != pNode && pSave == pNode->pLeft)
-	   {
-		  pSave = pNode;
-		  pNode = pNode->pParent;
-	   }
-
-	   return *this;
-	}*/
 
 	/******************************************************
 	*
@@ -354,6 +317,59 @@ namespace custom
 		return *this;
 	}
 
+	/*****************************************************
+	* Function: COPY BTREE
+	* Description: Copy a Binary Tree. Takes a pointer to
+	*  a BBNode as a parameter and returns a newly created
+	*  Binary Tree containing a copy of all the BBNodes
+	*  below the BBNode represented by the parameter.
+	*
+	* Input:
+	*  const BBNode *head - pointer to start of Binary Tree
+	*
+	* Output:
+	*  BBNode * - pointer to start of new list
+	*****************************************************/
+	template<class T>
+	typename BST<T>::BNode* BST<T>::privateCopyBTree(const BNode * root) throw(const char *)
+	{
+		try
+		{
+			//Only copy from the BNode provided down, allows for the creation of subtrees with this method
+			if (root != NULL)
+			{
+				BST<T>::BNode* newBNode = new BST<T>::BNode(root->data);
+				if (root->pLeft != NULL)
+				{
+					newBNode->pLeft = privateCopyBTree(root->pLeft);
+
+					// Not strictly necessary because of root->pLeft check
+					if (newBNode->pLeft != NULL)
+						newBNode->pLeft->pParent = newBNode;
+				}
+				if (root->pRight != NULL)
+				{
+					newBNode->pRight = privateCopyBTree(root->pRight);
+
+					// Same as above comment, this if statement is just to make
+					// sure there are no assignment issues in the last line
+					// that could cause a crash
+					if (newBNode->pRight != NULL)
+						newBNode->pRight->pParent = newBNode;
+				}
+
+				return newBNode;
+			}
+
+			return NULL;
+
+		}
+		catch (std::bad_alloc & e)
+		{
+			cout << "Unable to allocate a BNode" << endl;
+		}
+	}
+
 	/******************************************************
 	*
 	*
@@ -372,7 +388,7 @@ namespace custom
 	*
 	*********************************************************/
 	template<class T>
-	void BST<T>::privateDeleteBTree(node *& root)
+	void BST<T>::privateDeleteBTree(BNode *& root)
 	{
 		try
 		{
@@ -391,7 +407,7 @@ namespace custom
 			}
 
 			// This section is so that the calling of this method 
-			// on any node ensures the deletion of every node in
+			// on any BNode ensures the deletion of every BNode in
 			// the tree, ancestor or descendent
 			if (root->pParent != NULL)
 			{
@@ -412,60 +428,7 @@ namespace custom
 		}
 		catch (const bad_alloc & e)
 		{
-			cout << "Unable to allocate a node" << endl;
-		}
-	}
-
-	/*****************************************************
-	* Function: COPY BTREE
-	* Description: Copy a Binary Tree. Takes a pointer to
-	*  a BNode as a parameter and returns a newly created
-	*  Binary Tree containing a copy of all the BNodes
-	*  below the BNode represented by the parameter.
-	*
-	* Input:
-	*  const BNode *head - pointer to start of Binary Tree
-	*
-	* Output:
-	*  BNode * - pointer to start of new list
-	*****************************************************/
-	template<class T>
-	typename BST<T>::node* BST<T>::privateCopyBTree(const node * root) throw(const char *)
-	{
-		try
-		{
-			//Only copy from the node provided down, allows for the creation of subtrees with this method
-			if (root != NULL)
-			{
-				BST<T>::node* newNode = new BST<T>::node(root->data);
-				if (root->pLeft != NULL)
-				{
-					newNode->pLeft = privateCopyBTree(root->pLeft);
-
-					// Not strictly necessary because of root->pLeft check
-					if (newNode->pLeft != NULL)
-						newNode->pLeft->pParent = newNode;
-				}
-				if (root->pRight != NULL)
-				{
-					newNode->pRight = privateCopyBTree(root->pRight);
-
-					// Same as above comment, this if statement is just to make
-					// sure there are no assignment issues in the last line
-					// that could cause a crash
-					if (newNode->pRight != NULL)
-						newNode->pRight->pParent = newNode;
-				}
-
-				return newNode;
-			}
-
-			return NULL;
-
-		}
-		catch (std::bad_alloc & e)
-		{
-			cout << "Unable to allocate a node" << endl;
+			cout << "Unable to allocate a BNode" << endl;
 		}
 	}
 
@@ -479,6 +442,7 @@ namespace custom
 	{
 		privateInsert(t, this->root);
 		numElements++;
+		validateTree();
 	}
 
 	/******************************************************
@@ -487,11 +451,11 @@ namespace custom
 	*
 	*********************************************************/
 	template<class T>
-	void BST<T>::privateInsert(T t, node*& root)
+	void BST<T>::privateInsert(T t, BNode*& root)
 	{
 		if (root == NULL)
 		{
-			root = new node(t);
+			root = new BNode(t);
 		}
 		else if (t < root->data)
 		{
@@ -501,7 +465,7 @@ namespace custom
 			}
 			else
 			{
-				root->pLeft = new node(t, root);
+				root->pLeft = new BNode(t, root);
 			}
 		}
 		else if (t > root->data)
@@ -512,7 +476,7 @@ namespace custom
 			}
 			else
 			{
-				root->pRight = new node(t, root);
+				root->pRight = new BNode(t, root);
 			}
 		}
 	}
@@ -525,10 +489,10 @@ namespace custom
 	template<class T>
 	void BST<T>::erase(iterator & it)
 	{
-		node* root = it.getNode();
+		BNode* root = it.p;
 		privateErase(root);
+		validateTree();
 	}
-
 
 	/******************************************************
 	*
@@ -536,7 +500,7 @@ namespace custom
 	*
 	*********************************************************/
 	template<class T>
-	void BST<T>::privateErase(node*& root)
+	void BST<T>::privateErase(BNode*& root)
 	{
 		if (root == NULL) return;
 		//no child
@@ -597,7 +561,7 @@ namespace custom
 		//two children
 		else if (root->pLeft != NULL && root->pRight != NULL)
 		{
-			node* b = root->pRight;
+			BNode* b = root->pRight;
 			while (b->pLeft != NULL) b = b->pLeft;
 			if (b->pRight != NULL)
 			{
@@ -640,6 +604,216 @@ namespace custom
 		}
 	}
 
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::rotateRight(BNode* rotateBNode)
+	{
+		rotateBNode->pLeft->pParent = rotateBNode->pParent;
+		if (rotateBNode->pParent != NULL)
+		{
+			if (rotateBNode->pParent->pLeft == rotateBNode)
+				rotateBNode->pParent->pLeft = rotateBNode->pLeft;
+			else
+				rotateBNode->pParent->pRight = rotateBNode->pLeft;
+		}
+		rotateBNode->pParent = rotateBNode->pLeft;
+		rotateBNode->pLeft = rotateBNode->pLeft->pRight;
+		if (rotateBNode->pLeft != NULL) rotateBNode->pLeft->pParent = rotateBNode;
+		rotateBNode->pParent->pRight = rotateBNode;
+		rotateBNode = rotateBNode->pParent;
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::rotateLeft(BNode* rotateBNode)
+	{
+		rotateBNode->pRight->pParent = rotateBNode->pParent;
+		if (rotateBNode->pParent != NULL)
+		{
+			if (rotateBNode->pParent->pLeft == rotateBNode)
+				rotateBNode->pParent->pLeft = rotateBNode->pRight;
+			else
+				rotateBNode->pParent->pRight = rotateBNode->pRight;
+		}
+		rotateBNode->pParent = rotateBNode->pRight;
+		rotateBNode->pRight = rotateBNode->pRight->pLeft;
+		if (rotateBNode->pRight != NULL) rotateBNode->pRight->pParent = rotateBNode;
+		rotateBNode->pParent->pLeft = rotateBNode;
+		rotateBNode = rotateBNode->pParent;
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::validateTree()
+	{
+		iterator it(begin().p);
+		for (it; it != end(); it)
+		{
+			if (isValidBNode(it.p))
+			{
+				it++;
+			}
+			else
+			{
+				validateBNode(it.p);
+				it = begin();
+			}
+		}
+
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	void BST<T>::validateBNode(BNode*& root)
+	{
+		//BNode is root
+		if (root->pParent == NULL)
+		{
+			root->isRed = false;
+			return;
+		}
+
+		//Parent is a left child
+		if (isLeftChild(root->pParent))
+		{
+			BNode* uncle = root->pParent->pParent->pRight;
+
+			//uncle is black
+			if (uncle == NULL || !uncle->isRed)
+			{
+				//Line occurs
+				if (isLeftChild(root))
+				{
+					root->pParent->isRed = false;
+					root->pParent->pParent->isRed = true;
+					rotateRight(root->pParent->pParent);
+				}
+				//Diamond or triangle occurs
+				else
+				{
+					rotateLeft(root->pParent);
+				}
+			}
+			//Uncle is red
+			else
+			{
+				root->pParent->isRed = false;
+				root->pParent->pParent->isRed = true;
+				root->pParent->pParent->pRight->isRed = false;
+			}
+		}
+		//Parent is right child
+		else
+		{
+			BNode* uncle = root->pParent->pParent->pLeft;
+
+			//uncle is black
+			if (uncle == NULL || !uncle->isRed)
+			{
+				//Line occurs
+				if (isRightChild(root))
+				{
+					root->pParent->isRed = false;
+					root->pParent->pParent->isRed = true;
+					rotateLeft(root->pParent->pParent);
+				}
+				//Diamond or triangle occurs
+				else
+				{
+					rotateRight(root->pParent);
+				}
+			}
+			//Uncle is red
+			else
+			{
+				root->pParent->isRed = false;
+				root->pParent->pParent->isRed = true;
+				root->pParent->pParent->pLeft->isRed = false;
+			}
+		}
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	bool BST<T>::isValidBNode(BNode* root)
+	{
+		if (root == NULL) 
+			return true;
+		if (root->pParent == NULL)
+		{
+			if (root->isRed)
+				return false;
+			else if (!root->isRed)
+				return true;
+		}
+		else if (root->pParent != NULL && root->isRed)
+		{
+			if (root->pParent->isRed)
+				return false;
+			else
+				return true;
+		}
+		else if (root->pParent != NULL && !root->isRed)
+		{
+			return true;
+		}
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	bool BST<T>::isRightChild(BNode* root)
+	{
+		if (root == NULL)
+			return false;
+		else if (root->pParent != NULL)
+		{
+			return root->pParent->pRight == root;
+		}
+		return false;
+	}
+
+	/******************************************************
+	*
+	*
+	*
+	*********************************************************/
+	template<class T>
+	bool BST<T>::isLeftChild(BNode* root)
+	{
+		if (root == NULL)
+			return false;
+		else if (root->pParent != NULL)
+		{
+			return root->pParent->pLeft == root;
+		}
+		return false;
+	}
+
 	/******************************************************
 	*
 	*
@@ -648,7 +822,7 @@ namespace custom
 	template<class T>
 	typename BST<T>::iterator BST<T>::find(T t)
 	{
-		node* temp = privateFind( t, this->root);
+		BNode* temp = privateFind( t, this->root);
 		iterator tempI(temp);
 		return tempI;
 	}
@@ -659,7 +833,7 @@ namespace custom
 	*
 	*********************************************************/
 	template<class T>
-	typename BST<T>::node* BST<T>::privateFind(T t, node* root)
+	typename BST<T>::BNode* BST<T>::privateFind(T t, BNode* root)
 	{
 		iterator temp();
 		if (root == NULL || t == root->data)
@@ -691,7 +865,7 @@ namespace custom
 			return temp;
 		}
 
-		node* temp = root;
+		BNode* temp = root;
 		while (temp->pLeft != NULL) temp = temp->pLeft;
 		iterator tempI(temp);
 		return (tempI);
@@ -711,7 +885,7 @@ namespace custom
 			return temp;
 		}
 
-		node* temp = root;
+		BNode* temp = root;
 		while (temp->pRight != NULL) temp = temp->pRight;
 		iterator tempI(temp);
 		return (tempI);
@@ -719,3 +893,53 @@ namespace custom
 } // namespace custom
 
 #endif // BST_H
+
+	/**************************************************
+	 * BST ITERATOR :: DECREMENT PREFIX
+	 *     advance by one.
+	 * Author:      Br. Helfrich
+	 * Performance: O(log n) though O(1) in the common case
+	 *************************************************
+	template <class T>
+	typename BST <T> :: iterator & BST <T> :: iterator :: operator -- ()
+	{
+	   // do nothing if we have nothing
+	   if (NULL == pBNode)
+		  return *this;
+
+	   // if there is a left BNode, take it
+	   if (NULL != pBNode->pLeft)
+	   {
+		  // go left
+		  pBNode = pBNode->pLeft;
+
+		  // jig right - there might be more right-most children
+		  while (pBNode->pRight)
+			 pBNode = pBNode->pRight;
+		  return *this;
+	   }
+
+	   // there are no left children, the right are done
+	   assert(NULL == pBNode->pLeft);
+	   BBNode * pSave = pBNode;
+
+	   // go up
+	   pBNode = pBNode->pParent;
+
+	   // if the parent is the NULL, we are done!
+	   if (NULL == pBNode)
+		  return *this;
+
+	   // if we are the right-child, got to the parent.
+	   if (pSave == pBNode->pRight)
+		  return *this;
+
+	   // we are the left-child, go up as long as we are the left child!
+	   while (NULL != pBNode && pSave == pBNode->pLeft)
+	   {
+		  pSave = pBNode;
+		  pBNode = pBNode->pParent;
+	   }
+
+	   return *this;
+	}*/
