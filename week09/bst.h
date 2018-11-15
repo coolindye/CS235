@@ -308,15 +308,14 @@ namespace custom
 	};
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: BST copy constructor
+	* Description: copies one bst to make a new one 
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  bst<T>& - reference to an existing bst 
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  n/a
 	*****************************************************/
 	template<class T>
 	BST<T>::BST(BST<T>& rhs) throw(const char *)
@@ -326,15 +325,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: assignment operator
+	* Description: change this bst to be the same as
+	*  a different bst
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  bst<T>& - reference to an existing bst 
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  bst<T>& - return a dereference of itself
 	*****************************************************/
 	template<class T>
 	BST<T> & BST<T>::operator=(const BST<T>& rhs)
@@ -399,15 +398,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: clear
+	* Description: delets the bst nodes attatched to the 
+	*  root
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  n/a
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::clear()
@@ -417,15 +416,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: privateDeleteBTree
+	* Description: deletes all elements of the bst
+	*  recursively
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode *& -  basically just give it a node
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::privateDeleteBTree(BNode *& root)
@@ -473,15 +472,16 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: insert
+	* Description: put in a data 't' somewhere in the tree
+	*  in such a manner that it is sorted and order is
+	*  "preserved" so to speak
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  T - template data type
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::insert(T t)
@@ -492,15 +492,16 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: privateInsert
+	* Description: does the real insertion recursively
+	*  by checking each node on it's way down
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  T, Bnode - data to add, and the node to check adding
+	*             it to
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::privateInsert(T t, BNode*& root)
@@ -534,12 +535,11 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: erase
+	* Description: gets a node from the iterator and erases it
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  iterator - iterator to a node on the bst
 	*
 	* Output:
 	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
@@ -554,14 +554,13 @@ namespace custom
 
 	/*****************************************************
 	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Description: erases the node from the input
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode - node from the iterator from the erase function
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::privateErase(BNode*& root)
@@ -641,15 +640,15 @@ namespace custom
 
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
+	* Function: rotateRight
 	* Description: XXXXXXXXXXXXXXXXX
 	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode - node you want to rotate right from
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::rotateRight(BNode* rotateBNode)
@@ -670,15 +669,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
+	* Function: rotate left
 	* Description: XXXXXXXXXXXXXXXXX
 	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode - node you want to rotate left from
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::rotateLeft(BNode* rotateBNode)
@@ -699,15 +698,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: validateTree
+	* Description: keeps the rules from black
+	*  and red implemented
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  n/a
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::validateTree()
@@ -729,15 +728,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: validateBNode
+	* Description: validates the specific node
+	*  for black and red rules
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode *& - 
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::validateBNode(BNode*& root)
@@ -810,15 +809,14 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: isValidBNode
+	* Description: checks if red nodes follow red rules
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode - the node you want to check the validity
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  bool - true/false complies/doesn't comply
 	*****************************************************/
 	template<class T>
 	bool BST<T>::isValidBNode(BNode* root)
@@ -846,15 +844,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: isRightChild
+	* Description: checks if this node is the right child
+	*  of a parent node
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode - node you want to check
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  bool - it is/ or it isn't
 	*****************************************************/
 	template<class T>
 	bool BST<T>::isRightChild(BNode* root)
@@ -869,15 +867,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: isLeftChild
+	* Description: checks if this node is the left child
+	*  of a parent node
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  Bnode - node you want to check
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  bool - it is/ or it isn't
 	*****************************************************/
 	template<class T>
 	bool BST<T>::isLeftChild(BNode* root)
@@ -892,15 +890,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: find
+	* Description: returns the iterator for a node that
+	*  has the value of t
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  T - t
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  iterator - iterator to the node with data t
 	*****************************************************/
 	template<class T>
 	typename BST<T>::iterator BST<T>::find(T t)
@@ -911,15 +909,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: privateFind
+	* Description: returns the node with data t searching 
+	*  from the main root of the bst, until we get 
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  T, Bnode - data t, and the main root of bst
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  Bnode - node with data = t, or null
 	*****************************************************/
 	template<class T>
 	typename BST<T>::BNode* BST<T>::privateFind(T t, BNode* root)
@@ -941,15 +939,15 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Function: begin
+	* Description: returns an iterator for the main
+	*  root of the bst
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  n/a
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  iterator - iterator to the root
 	*****************************************************/
 	template<class T>
 	typename BST<T>::iterator BST<T>::begin()
@@ -966,8 +964,10 @@ namespace custom
 		return (tempI);
 	}
 
+
+	//is this the reverse begin?
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
+	* Function: rbegin
 	* Description: XXXXXXXXXXXXXXXXX
 	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	*
