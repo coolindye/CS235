@@ -12,7 +12,8 @@
 #     Ian:     2 hours
 #     Group:   2 hours
 # The most difficult part:
-#     Aiden: 
+#     Aiden: Rotation is a very difficult concept to wrap
+#            my head around....
 #     Garrett: 
 #     Ian: I was having some issues with operator overloading
 #          this week and figuring out the nested node. 
