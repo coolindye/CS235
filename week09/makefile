@@ -9,8 +9,14 @@
 # Time:
 #     Aiden:   2 hours
 #     Garrett: 6 hours
-#     Ian:     x hours
-#     Group:   x hours
+#     Ian:     2 hours
+#     Group:   2 hours
+# The most difficult part:
+#     Aiden: Rotation is a very difficult concept to wrap
+#            my head around....
+#     Garrett: 
+#     Ian: I was having some issues with operator overloading
+#          this week and figuring out the nested node. 
 ###############################################################
 
 ##############################################################

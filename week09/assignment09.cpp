@@ -1,9 +1,9 @@
 /***********************************************************************
 * Program:
 *    Assignment 09, Binary Search Trees
-*    Brother <your instructor name>, CS 235
+*    Brother Kirby, CS 235
 * Author:
-*    <your name here>
+*    Garrett/Aiden/Ian
 * Summary: 
 *    This is a driver program to exercise the BST class.  When you
 *    submit your program, this should not be changed in any way.  That being

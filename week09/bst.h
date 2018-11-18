@@ -3,7 +3,7 @@
  *    Assignment 09, Binary Search Tree (BST)
  *    Brother <your instructor name here>, CS 235
  * Author:
- *    <your name here>
+ *    Garrett/Aiden/Ian
  * Summary:
  *    Create a binary search tree
  ************************************************************************/
@@ -542,7 +542,7 @@ namespace custom
 	*  iterator - iterator to a node on the bst
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  void
 	*****************************************************/
 	template<class T>
 	void BST<T>::erase(iterator & it)
@@ -553,7 +553,7 @@ namespace custom
 	}
 
 	/*****************************************************
-	* Function: NAMEEEEEEEEE
+	* Function: privateErase
 	* Description: erases the node from the input
 	*
 	* Input:
@@ -968,14 +968,14 @@ namespace custom
 	//is this the reverse begin?
 	/*****************************************************
 	* Function: rbegin
-	* Description: XXXXXXXXXXXXXXXXX
-	*  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+	* Description: returns a reverse iterator for the main
+	*  root of the bst
 	*
 	* Input:
-	*  DATATYPE - LAYMANTERMSXXXXXXXXXXXXXX
+	*  n/a
 	*
 	* Output:
-	*  DATATYPE - REASONOorLAYMANTERMSXXXXX
+	*  iterator - 
 	*****************************************************/
 	template<class T>
 	typename BST<T>::iterator BST<T>::rbegin()
