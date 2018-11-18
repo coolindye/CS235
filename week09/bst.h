@@ -8,9 +8,6 @@
  *    Create a binary search tree
  ************************************************************************/
 
-
-
-
 #ifndef BST_H
 #define BST_H
 using namespace std;
@@ -53,7 +50,7 @@ namespace custom
 		};
 
 		/*****************************************************
-		* Classs: iterator
+		* Class: iterator
 		* Description: the iterator class for the bst
 		*****************************************************/
 		class iterator
@@ -479,7 +476,7 @@ namespace custom
 				privateClear(root->pParent);
 			}
 
-			root->~BNode();
+			root = NULL;
 		}
 		catch (const bad_alloc & e)
 		{
