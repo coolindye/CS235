@@ -11,8 +11,9 @@
 #include "map.h"       // for MAP
 #include "wordCount.h" // for wordCount() prototype
 #include <string>
+#include <iostream>
+#include <fstream>
 using namespace std;
-//void readFile(map <string, Count> & counts, const string & fileName);
 
 /*****************************************************
  * WORD COUNT
@@ -21,5 +22,33 @@ using namespace std;
  *****************************************************/
 void wordCount()
 {
+	map <string, int> wordFreqMap;
+	string filename, word;
 
+	cout << "What is the filename to be counted? ";
+	cin >> filename;
+
+	ifstream myfile(filename);
+	if (myfile.is_open())
+	{
+		while (myfile >> word)
+		{
+			wordFreqMap[word] += 1;
+		}
+		myfile.close();
+	}
+
+	cout << "What word whose frequency is to be found. Type ! when done\n";
+	cout << "> ";
+	cin >> word;
+	while (word != "!")
+	{
+		cout << "\t"
+			<< word
+			<< " : "
+			<< wordFreqMap[word]
+			<< "\n";
+		cout << "> ";
+		cin >> word;
+	}
 }

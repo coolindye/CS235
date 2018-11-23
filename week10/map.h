@@ -29,13 +29,13 @@ namespace custom
 		{
 
 		private:
-			typname BST < pair <K, V> > ::iterator it();
+			typename BST < pair <K, V> > ::iterator it;
 
 		public:
 
 			//Constructors
 			iterator() : it() {}
-			iterator(const typename BST < pair <K, V> >::iterator rhs)
+			iterator(const typename BST < pair <K, V> >::iterator & rhs)
 			{
 				it = rhs;
 			}
@@ -51,9 +51,13 @@ namespace custom
 				return *this;
 			}
 
+			
 			bool operator == (const iterator & rhs) { return (it == rhs.it); }
 			bool operator != (const iterator & rhs) { return (it != rhs.it); }
-			pair<K, V> & operator * () { return *it; }
+			pair<K, V> & operator * () 
+			{ 
+				return *it; 
+			}
 
 			// prefix increment
 			iterator & operator ++ () 
@@ -105,25 +109,14 @@ namespace custom
 		V & operator [] (K key) throw (const char *)
 		{
 			pair<K, V> tempPair(key, V());
-			if (find(key) == end())
-			{
-				insert(tempPair);
-			}
-			return tempPair.second;
-		}
-
-		/* access operators, returns values
-		const V & operator [] (const K key) const throw (const char *)
-		{
-			pair<K, V> tempPair(key, V());
-
-			iterator temp(bst.find(key));
+			iterator temp(find(key));
 			if (temp == end())
 			{
 				insert(tempPair);
+				temp = find(key);
 			}
-			return tempPair.second;
-		}*/
+			return (*temp).second;
+		}
 
 		bool empty() { return bst.empty(); }
 		int size() { return bst.size(); }

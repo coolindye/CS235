@@ -823,6 +823,7 @@ namespace custom
 				it = begin();
 			}
 		}
+		while (root->pParent != nullptr) root = root->pParent;
 
 	}
 
