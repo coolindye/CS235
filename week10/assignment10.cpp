@@ -23,7 +23,7 @@ using std::ostream;
 using std::ios;
 //using std::setw;
 using namespace custom;
-//using namespace std;
+using namespace std;
 
 // prototypes for our four test functions
 void testSimple();
@@ -37,8 +37,8 @@ void testQuery();
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
 #define TEST1   // for testSimple()
 #define TEST2   // for testAdd()
-#define TEST3   // for testIterate()
-#define TEST4   // for testQuery()
+//#define TEST3   // for testIterate()
+//#define TEST4   // for testQuery()
 
 /**********************************************************************
  * MAIN

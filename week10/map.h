@@ -13,6 +13,7 @@
 #include "bst.h"
 #include "pair.h"
 using namespace std;
+using namespace custom;
 
 namespace custom
 {
@@ -26,48 +27,77 @@ namespace custom
 		*****************************************************/
 		class iterator
 		{
+
 		private:
-			
+			typname BST < pair <K, V> > ::iterator it();
+
 		public:
 
 			//Constructors
-			iterator() : mapit(NULL) {}
-			iterator(BST <pair <K, V>>::iterator rhs) : mapit(rhs) {}
-			iterator(iterator rhs) : mapit(rhs.mapit) {}
+			iterator() : it() {}
+			iterator(const typename BST < pair <K, V> >::iterator rhs)
+			{
+				it = rhs;
+			}
+			iterator(const iterator & rhs)	
+			{
+				it = rhs.it;
+			}
 
 			//Assignment operator, can be assigned to a map iterator
 			iterator & operator = (const iterator & rhs) 
 			{ 
-				mapit = rhs.mapit;
+				it = rhs.it;
 				return *this;
 			}
 
-
-			bool operator == (const iterator & rhs) { return (mapit == rhs.mapit); }
-			bool operator != (const iterator & rhs) { return (mapit != rhs.mapit); }
-			pair<K, V> & operator * () const { return *mapit; }
+			bool operator == (const iterator & rhs) { return (it == rhs.it); }
+			bool operator != (const iterator & rhs) { return (it != rhs.it); }
+			pair<K, V> & operator * () { return *it; }
 
 			// prefix increment
-			iterator & operator ++ () { return ++mapit; }
+			iterator & operator ++ () 
+			{ 
+				++it;
+				return *this;
+			}
 
 			// postfix increment
-			iterator operator ++ (int postfix) { return mapit++; }
+			iterator operator ++ (int postfix) 
+			{
+				iterator tmp(*this);
+				it++; 
+				return tmp;
+
+			}
 
 			//prefix decrement
-			iterator & operator -- () { return --mapit; }
+			iterator & operator -- () 
+			{ 
+				--it;
+				return *this;
+			}
 
 			// postfix decrement
-			iterator operator -- (int postfix) { return mapit--; }
+			iterator operator -- (int postfix) 
+			{ 
+				iterator tmp(*this);
+				it--;
+				return tmp;
+			}
 		};
 
 		// default and copy constructor
-		map() : mapBST() {}
-		map(const map<K, V> & rhs) throw (const char *): mapBST(rhs.mapBST) {}
+		map() : bst() {}
+		map(const map<K, V> & rhs) throw (const char *)
+		{
+			bst = rhs.bst;
+		}
 
 		// copy the values, assignment operator
 		map <K, V> & operator = (const map <K, V> & rhs)
 		{
-			mapBST = rhs.mapBST;
+			bst = rhs.bst;
 			return *this;
 		}
 		
@@ -75,52 +105,56 @@ namespace custom
 		V & operator [] (K key) throw (const char *)
 		{
 			pair<K, V> tempPair(key, V());
-			iterator temp(mapBST.find(tempPair));
-			if (temp == end())
-			{
-				insert(tempPair);
-			}
-			return tempPair.second;
-		}
-		const V & operator [] (K key) const throw (const char *)
-		{
-			pair<K, V> tempPair(key, V());
-			iterator temp(mapBST.find(tempPair));
-			if (temp == end())
+			if (find(key) == end())
 			{
 				insert(tempPair);
 			}
 			return tempPair.second;
 		}
 
-		bool empty() { return mapBST.empty(); }
-		int size() { return mapBST.size(); }
-		void clear() { mapBST.clear(); }
+		/* access operators, returns values
+		const V & operator [] (const K key) const throw (const char *)
+		{
+			pair<K, V> tempPair(key, V());
+
+			iterator temp(bst.find(key));
+			if (temp == end())
+			{
+				insert(tempPair);
+			}
+			return tempPair.second;
+		}*/
+
+		bool empty() { return bst.empty(); }
+		int size() { return bst.size(); }
+		void clear() { bst.clear(); }
 		void insert(K key, V value) 
 		{
 			pair<K, V> pair(key, value); 
-			mapBST.insert(pair);
+			bst.insert(pair);
 		}
-		void insert(pair<K, V> pair) { mapBST.insert(pair); }
+		void insert(pair<K, V> pair) { bst.insert(pair); }
 		iterator find(K key) 
 		{
-			iterator temp(mapBST.find(key));
+			pair<K, V> tempPair(key, V());
+			iterator it(bst.find(tempPair));
+			iterator temp(it);
 			return temp;
 		}
 		iterator begin()
 		{
-			iterator temp(mapBST.begin());
-			return temp;
+			return bst.begin();
 		}
 		iterator end()
 		{
-			iterator temp();
+			iterator temp(nullptr);
 			return temp;
 		}
 
 	private:
-		BST <pair <K, V>> mapBST;
-	};// map class
+		BST < pair <K, V> > bst;
+	};
+	// map class
 } // namespace custom
 
 #endif // MAP_H
