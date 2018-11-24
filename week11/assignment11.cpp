@@ -87,6 +87,7 @@ int main(int argc, char ** argv)
       cout << error << endl;
    }
 
+   system("PAUSE");
    return 0;
 }
 

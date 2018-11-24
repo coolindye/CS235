@@ -13,6 +13,7 @@
 
 #include "bst.h"
 #include <cassert>
+using namespace custom;
 
 /*****************************************************
  * SORT BINARY
@@ -21,6 +22,18 @@
 template <class T>
 void sortBinary(T array[], int num)
 {
+	BST <T> tree;
+	typename BST <T>::iterator it;
+	int i;
+
+	for (i = 0; i < num; i++)
+	{
+		tree.insert(array[i]);
+	}
+
+	i = 0;
+	for (it = tree.begin(); it != tree.end(); it++)
+		array[i++] = *it;
 }
 
 

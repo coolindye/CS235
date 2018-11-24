@@ -52,6 +52,9 @@
     <ClInclude Include="sortValue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="numbers.txt">

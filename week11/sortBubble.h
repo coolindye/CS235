@@ -11,13 +11,31 @@
 #ifndef SORT_BUBBLE_H
 #define SORT_BUBBLE_H
 
-/*****************************************************
- * SORT BUBBLE
- * Perform the bubble sort
- ****************************************************/
+ /*****************************************************
+  * SORT BUBBLE
+  * Perform the bubble sort
+  ****************************************************/
 template <class T>
 void sortBubble(T array[], int num)
 {
+	int iPivot, iCheck;
+	bool swapped;
+	for (iPivot = num - 1; iPivot > 1; iPivot--)
+	{
+		swapped = false;
+		for (iCheck = 0; iCheck < iPivot; iCheck++)
+		{
+			if (array[iCheck + 1] < array[iCheck])
+			{
+				T temp = array[iCheck];
+				array[iCheck] = array[iCheck + 1];
+				array[iCheck + 1] = temp;
+				swapped = true;
+			}
+		}
+		if (!swapped)
+			return;
+	}
 }
 
 

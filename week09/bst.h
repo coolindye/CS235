@@ -540,8 +540,8 @@ namespace custom
 				root->pLeft = new BNode(t, root);
 			}
 		}
-		// Try to move data to right child if it is more than
-		else if (t > root->data)
+		// Try to move data to right child if it is more than or equal to
+		else if (t > root->data || t == root->data)
 		{
 			if (root->pRight != nullptr)
 			{

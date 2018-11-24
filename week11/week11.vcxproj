@@ -125,6 +125,7 @@
     <Text Include="numbers.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bst.h" />
     <ClInclude Include="sortBinary.h" />
     <ClInclude Include="sortBubble.h" />
     <ClInclude Include="sortHeap.h" />
