@@ -504,7 +504,7 @@ namespace custom
 	{
 		privateInsert(t, this->root);
 		numElements++;
-		validateTree();
+		//validateTree();
 	}
 
 	/*****************************************************
@@ -572,7 +572,7 @@ namespace custom
 	{
 		BNode* root = it.p;
 		privateErase(root);
-		validateTree();
+		//validateTree();
 	}
 
 	/*****************************************************

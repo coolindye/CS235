@@ -3,7 +3,7 @@
  *    Week 11, Sort Select
  *    Brother Helfrich, CS 235
  * Author:
- *    <your name>
+ *    Garrett, Aiden, Ian
  * Summary:
  *    This program will implement the Selection Sort
  ************************************************************************/

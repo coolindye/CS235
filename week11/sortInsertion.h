@@ -3,7 +3,7 @@
  *    Week 11, Sort Insertion
  *    Brother Helfrich, CS 235
  * Author:
- *    <your name>
+ *    Garrett, Aiden, Ian
  * Summary:
  *    This program will implement the Insertion Sort
  ************************************************************************/
@@ -14,6 +14,18 @@
 #include <cassert>
 
 
+ /***********************************************************************
+  * BINARY SEARCH
+  *    Input:
+  *       array[] - array to be searched
+  *       search - value trying to be found
+  *       iBegin - index of the start of array to be searched
+  *       iEnd - inded of the end of array being searched
+  *    
+  *    Output:
+  *       int - index of array that the search value is found at or the 
+  *             closest value less than the search value in the array
+  ************************************************************************/
 template <class T>
 int binarySearch(T array[], T search, int iBegin, int iEnd)
 {
@@ -27,20 +39,13 @@ int binarySearch(T array[], T search, int iBegin, int iEnd)
 	if (array[iMiddle] == search)
 		return iMiddle;
 
-	// If element is smaller than mid, then  
-	// it can only be present in left subarray 
+	// If search value is larger than iMiddle, it is in the right subarray
 	if (search > array[iMiddle])
 		return binarySearch(array, search, iMiddle + 1, iEnd);
 
-	// Else the element can only be present 
-	// in right subarray 
+	// Else it is in the left subarray 
 	else
 		return binarySearch(array, search, iBegin, iMiddle - 1);
-
-
-	// We reach here when element is not  
-	// present in array 
-	return -1;
 }
 
 /*****************************************************
@@ -55,7 +60,10 @@ void sortInsertion(T array[], int num)
 		T valuePivot = array[iPivot];
 		int iShift;
 		int iInsert = binarySearch(array, valuePivot, iPivot + 1, num - 1);
+
+		//Get value of index just below the insert value so that the shifting is done correctly
 		iInsert--;
+
 		for (iShift = iPivot; iShift < iInsert; iShift++)
 		{
 			array[iShift] = array[iShift + 1];

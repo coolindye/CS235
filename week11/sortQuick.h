@@ -3,7 +3,7 @@
  *    Week 11, Sort Quick
  *    Brother Helfrich, CS 235
  * Author:
- *    <author>
+ *    Garrett, Aiden, Ian
  * Summary:
  *    This program will implement the Quick Sort
  ************************************************************************/
@@ -12,34 +12,35 @@
 #define SORT_QUICK_H
 
 template <class T>
-void quickSort(T arr[], int left, int right)
+void quickSort(T array[], int iLeft, int iRight)
 {
-	int i = left, j = right;
+	int l = iLeft, r = iRight;
 	T tmp;
-	T pivot = arr[(left + right) / 2];
+	T pivot = array[(iLeft + iRight) / 2];
 
-	/* partition */
-	while (i <= j)
+	// Partition the array into more manageable subarrays for recursion
+	// if no partitioning happens you will end up in an infinite recursive loop
+	while (l <= r)
 	{
-		while (arr[i] < pivot)
-			i++;
-		while (arr[j] > pivot)
-			j--;
-		if (i <= j)
+		while (array[l] < pivot)
+			l++;
+		while (array[r] > pivot)
+			r--;
+		if (l <= r)
 		{
-			tmp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = tmp;
-			i++;
-			j--;
+			tmp = array[l];
+			array[l] = array[r];
+			array[r] = tmp;
+			l++;
+			r--;
 		}
 	}
 
-	/* recursion */
-	if (left < j)
-		quickSort(arr, left, j);
-	if (i < right)
-		quickSort(arr, i, right);
+	// Recursive code that continues to sort each subarray until there is one element
+	if (iLeft < r)
+		quickSort(array, iLeft, r);
+	if (l < iRight)
+		quickSort(array, l, iRight);
 }
 
  /*****************************************************
