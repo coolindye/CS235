@@ -1,13 +1,22 @@
 ###############################################################
 # Program:
 #     Assignment 11, Sorts
-#     Brother XXXXX, CS235
+#     Brother Kirby, CS235
 # Author:
-#     <your name here>
+#     Garrett Smith, Aiden Reid, Ian Stubbs
 # Summary:
 #     <put a description here>
+# Hardest Parts:
+#     Garrett: 
+#
+#     Ian:
+#
+#     Aiden:
 # Time:
-#     <how long did it take to complete this program>?
+#     Total time: 
+#     Garrett: 
+#     Ian: 
+#     Aiden: 
 ###############################################################
 
 ##############################################################
