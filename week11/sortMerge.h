@@ -50,33 +50,33 @@ void sortMerge(T array[], int num)
     for (int i = 0; i < size1; i++)
         source1[i] = array[i];
 
-    //filling second array with first half of source numbers
+    //filling second array with second half of source numbers
     for (int i = 0, iEnd = size1; i < size1 && iEnd < num; i++)
     {
         source2[i] = array[iEnd];
         iEnd++;
     }
 
-    T source;
+    T smallest1;
     int sourceIndex;
 
     //sorting the first array
     for (int iBegin = 0; iBegin < size1; iBegin++)
     {
         //source is the first number
-        source = source1[iBegin];
+        smallest1 = source1[iBegin];
 
         //checking to see if other elements in array are smaller
         for (int i = iBegin + 1; i < size1; i++)
         {
-            if (source1[i] < source)
+            if (source1[i] < smallest1)
             {
-                source = source1[i];
+                smallest1 = source1[i];
                 sourceIndex = i;
             }
         }
         source1[sourceIndex] = source1[iBegin];
-        source1[iBegin] = source;
+        source1[iBegin] = smallest1;
     }
 
     //new variables used for second sorting
