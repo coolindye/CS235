@@ -11,6 +11,10 @@
 #ifndef SORT_MERGE_H
 #define SORT_MERGE_H
 
+#include <iostream>
+using namespace std;
+
+
 template <class T>
 void merge(T destination [], T source1[], int size1, T source2[], int size2)
 {
@@ -75,9 +79,21 @@ void sortMerge(T array[], int num)
                 sourceIndex = i;
             }
         }
-        source1[sourceIndex] = source1[iBegin];
-        source1[iBegin] = smallest1;
+        if (smallest1 == source1[iBegin])
+        {
+            ;
+        }
+        else
+        {
+            source1[sourceIndex] = source1[iBegin];
+            source1[iBegin] = smallest1;
+        }
     }
+    //cout << endl;
+    //for (int i = 0; i < size1; i++)
+    //{
+    //    cout << source1[i] << ", ";
+    //}
 
     //new variables used for second sorting
     T smallest2;
@@ -98,8 +114,14 @@ void sortMerge(T array[], int num)
                 sourceIndex2 = i;
             }
         }
-        source2[sourceIndex2] = source2[iBegin2];
-        source2[iBegin2] = smallest2;
+        //if current smallest number is the same as iBegin we can skip
+        if (smallest2 == source2[iBegin2])
+            ;
+        else
+        {
+            source2[sourceIndex2] = source2[iBegin2];
+            source2[iBegin2] = smallest2;
+        }
     }
 
     merge(array, source1, size1, source2, size2);
