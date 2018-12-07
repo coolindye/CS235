@@ -24,37 +24,42 @@ private:
 public:
     Hash(int numBuckets) throw (const char *);
     Hash(const Hash &rhs) throw (const char *);
-    virtual ~Hash() {  }
-
     Hash & operator = (const Hash & rhs);
-    int size() const { return numElements; }
-    int capacity() const { return numBuckets; }
-    bool empty() const { return numElements > 0;  }
-    bool find(const T & t) throw (const char *);
+    virtual ~Hash() {  }
+    
+    int  size()     const { return numElements; }
+    int  capacity() const { return numBuckets; }
+    bool empty()    const { return numElements == 0; }
 
+    bool find(const T & t) throw (const char *);
     void insert(const T & t) throw (const char *);
 
     virtual int hash(const T & t) const = 0;
 
 };
 
-
-#endif // HASH_H
-
 template<class T>
 inline Hash<T>::Hash(int numBuckets) throw(const char *)
 {
+    this->numBuckets = numBuckets;
+    this->numElements = 0;
+    this->table = new T[numBuckets];
 }
 
 template<class T>
 inline Hash<T>::Hash(const Hash & rhs) throw(const char *)
 {
+    this->table = rhs.table;
+    this->numElements = rhs.numElements;
+    this->numBuckets = rhs.numBuckets;
 }
 
 template<class T>
 Hash<T> & Hash<T>::operator=(const Hash & rhs)
 {
-    // TODO: insert return statement here
+    table = rhs.table;
+    numElements = rhs.numElements;
+    numBuckets = rhs.numBuckets;
     return *this;
 }
 
@@ -67,4 +72,13 @@ inline bool Hash<T>::find(const T & t) throw(const char *)
 template<class T>
 inline void Hash<T>::insert(const T & t) throw(const char *)
 {
+    numElements++;
+    int index = hash(t);
+
+    //if (table[index] == 0) {
+    //    table[index] = new std::vector <T> 
+    //}
+
 }
+
+#endif // HASH_H
