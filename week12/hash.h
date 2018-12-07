@@ -11,6 +11,7 @@
 #ifndef HASH_H
 #define HASH_H
 
+#include <iostream>
 
 template<class T>
 class Hash
@@ -21,8 +22,8 @@ private:
     int numBuckets;
 
 public:
-    Hash(const int numBuckets) {}
-    Hash(const Hash &rhs);
+    Hash(int numBuckets) throw (const char *);
+    Hash(const Hash &rhs) throw (const char *);
     ~Hash();
 
     Hash & operator = (const Hash rhs);
@@ -33,7 +34,7 @@ public:
 
     void insert(T t);
 
-    virtual int hash(const T & t) = 0;
+    int virtual hash(const T & t) = 0;
 
 };
 
