@@ -24,20 +24,36 @@ private:
 public:
     Hash(int numBuckets) throw (const char *);
     Hash(const Hash &rhs) throw (const char *);
-    ~Hash();
+    ~Hash() { delete[] table; }
 
-    Hash & operator = (const Hash rhs);
+    Hash & operator = (const Hash & rhs);
     int size();
     int capacity() const;
     bool empty();
     bool find(T t);
 
-    void insert(T t);
+    void insert(const T & t) throw (const char *);
 
-    int virtual hash(const T & t) = 0;
+    virtual int hash(const T & t) = 0;
 
 };
 
 
 #endif // HASH_H
 
+template<class T>
+Hash<T>::Hash(int numBuckets) throw(const char *)
+{
+    this->numBuckets = numBuckets;
+}
+
+template<class T>
+Hash<T>::Hash(const Hash & rhs) throw(const char *)
+{
+}
+
+template<class T>
+Hash<T> & Hash<T>::operator=(const Hash & rhs)
+{
+    // TODO: insert return statement here
+}
