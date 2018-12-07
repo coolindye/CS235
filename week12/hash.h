@@ -24,12 +24,12 @@ private:
 public:
     Hash(int numBuckets) throw (const char *);
     Hash(const Hash &rhs) throw (const char *);
-    virtual ~Hash() {  }
+    virtual ~Hash() { delete[] table; }
 
     Hash & operator = (const Hash & rhs);
     int size() const { return numElements; }
     int capacity() const { return numBuckets; }
-    bool empty() const { return numElements > 0;  }
+    bool empty() const { return this->numElements == 0;  }
     bool find(const T & t) throw (const char *);
 
     void insert(const T & t) throw (const char *);
@@ -44,6 +44,7 @@ public:
 template<class T>
 inline Hash<T>::Hash(int numBuckets) throw(const char *)
 {
+    this->numBuckets = numBuckets;
 }
 
 template<class T>
