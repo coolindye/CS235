@@ -5,18 +5,19 @@
 # Author:
 #     Garrett Smith, Aiden Reid, Ian Stubbs
 # Summary:
-#     <put a description here>
+#     Hash class 
 # Hardest Parts:
 #     Garrett: 
 #
 #     Ian:
 #
-#     Aiden:
+#     Aiden: Making the array of lists for the hash work with still
+#            allowing relavent usage of buckets
 # Time:
 #     Total time: 
 #     Garrett: 
 #     Ian: 
-#     Aiden: 
+#     Aiden: 8
 ###############################################################
 
 ##############################################################
