@@ -9,13 +9,14 @@
 # Hardest Parts:
 #     Garrett: 
 #
-#     Ian:
+#     Ian: Hardest part was getting the iterator to properly go 
+#          through the list of strings and make tolower. 
 #
 #     Aiden:
 # Time:
-#     Total time: 
+#     Total time: 7
 #     Garrett: 
-#     Ian: 
+#     Ian: 7
 #     Aiden: 
 ###############################################################
 
