@@ -63,7 +63,7 @@ int main()
     switch (choice)
     {
     case 'a':
-        spellCheck();
+        //spellCheck();
         break;
     case '1':
         testSimple();
@@ -74,11 +74,11 @@ int main()
         cout << "Test 2 complete\n";
         break;
     case '3':
-        testCopy();
+        //testCopy();
         cout << "Test 3 complete\n";
         break;
     case '4':
-        testQuery();
+        //testQuery();
         cout << "Test 4 complete\n";
         break;
     default:
@@ -130,6 +130,7 @@ private:
     float min;
     float max;
 };
+
 
 /*******************************************
  * TEST SIMPLE
