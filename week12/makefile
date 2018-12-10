@@ -5,19 +5,19 @@
 # Author:
 #     Garrett Smith, Aiden Reid, Ian Stubbs
 # Summary:
-#     <put a description here>
+#     Hash class 
 # Hardest Parts:
 #     Garrett: 
 #
-#     Ian: Hardest part was getting the iterator to properly go 
-#          through the list of strings and make tolower. 
+#     Ian:
 #
-#     Aiden:
+#     Aiden: Making the array of lists for the hash work with still
+#            allowing relavent usage of buckets
 # Time:
-#     Total time: 7
+#     Total time: 
 #     Garrett: 
-#     Ian: 7
-#     Aiden: 
+#     Ian: 
+#     Aiden: 8
 ###############################################################
 
 ##############################################################
