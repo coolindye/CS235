@@ -21,6 +21,9 @@
     <ClCompile Include="maze.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="cs.txt">

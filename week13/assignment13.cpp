@@ -15,7 +15,7 @@
 #include <string>        // for STRING
 #include "graph.h"       // for Graph class which should be in graph.h
 #include "vertex.h"      // for Vertex, LVertex, and CVertex
-#include "maze.h"
+//#include "maze.h"
 #include "set.h"
 //#include <set>
 using std::cout;
@@ -41,9 +41,9 @@ void testFindAll();
 // I suggest first commenting out all of these tests, then try to use only
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
 #define TEST1   // for testSimple()
-#define TEST2   // for testAdd()
-#define TEST3   // for testQuery()
-#define TEST4   // for testFindAll()
+//#define TEST2   // for testAdd()
+//#define TEST3   // for testQuery()
+//#define TEST4   // for testFindAll()
 
 /**********************************************************************
  * MAIN
@@ -66,7 +66,7 @@ int main()
    switch (choice)
    {
       case 'a':
-         solveMaze();
+         //solveMaze();
          break;
       case '1':
          testSimple();

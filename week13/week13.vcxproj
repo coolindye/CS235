@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="assignment13.cpp" />
+    <ClCompile Include="graph.cpp" />
     <ClCompile Include="maze.cpp" />
   </ItemGroup>
   <ItemGroup>

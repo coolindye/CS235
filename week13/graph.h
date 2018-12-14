@@ -11,34 +11,32 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <iostream>
 #include "set.h"
+#include "vertex.h"
 
 namespace custom
 {
 
-    template <class T>
     class Graph
     {
     private:
-        int vertices;
-        int twoD;
-        bool **matrix[];
-        //bool *matrix2D[][];
+        int vTotal;
+        bool *matrix;
+
     public:
-        Graph() {}
-        Graph(int vertices) throw (const char *);
+        Graph()                                throw (const char *);
+        Graph(int vertex)                      throw (const char *);
+        Graph(const Graph & rhs)               throw (const char *);
+        Graph & operator = (const Graph & rhs) throw (const char *);
+
+        int size() const { return vTotal; }
     };
 
-    template<class T>
-    Graph<T>::Graph(int vertices) throw(const char *)
-    {
-        this->vertices = vertices;
-        /*int rowCount = vertices;
-        int colCount = vertices;
-        matrix = new bool*[rowCount];
-        for (int i = 0; i < rowCount; ++i)
-            a[i] = new bool[colCount];*/
-    }
+
+
+
+
 
 
 };
