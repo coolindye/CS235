@@ -41,7 +41,7 @@ void testFindAll();
 // I suggest first commenting out all of these tests, then try to use only
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
 #define TEST1   // for testSimple()
-//#define TEST2   // for testAdd()
+#define TEST2   // for testAdd()
 //#define TEST3   // for testQuery()
 //#define TEST4   // for testFindAll()
 
@@ -159,6 +159,7 @@ void testAdd()
       // C --> A
       cout << "\tC --> A\n";
       v1.setText(string("C"));
+
       v2.setText(string("A"));
       g.add(v1, v2);
 

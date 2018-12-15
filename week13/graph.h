@@ -26,11 +26,14 @@ namespace custom
 
     public:
         Graph()                                throw (const char *);
-        Graph(int vertex)                      throw (const char *);
+        Graph(int num)                         throw (const char *);
         Graph(const Graph & rhs)               throw (const char *);
         Graph & operator = (const Graph & rhs) throw (const char *);
 
         int size() const { return vTotal; }
+
+        void add(const Vertex &v, const custom::set<Vertex> &s);
+        void add(const Vertex &v1, const Vertex &v2);
     };
 
 

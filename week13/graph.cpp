@@ -5,10 +5,10 @@ custom::Graph::Graph() throw (const char *)
     this->vTotal = 0;
 }
 
-custom::Graph::Graph(int vertex) throw (const char *)
+custom::Graph::Graph(int num) throw (const char *)
 {
-    int count = vertex * vertex;
-    this->vTotal = vertex;
+    int count = num * num;
+    this->vTotal = num;
     this->matrix = new bool[count];
     for (int i = 0; i < count; i++)
     {
@@ -38,6 +38,14 @@ custom::Graph & custom::Graph::operator=(const Graph & rhs) throw(const char *)
     }
 
     return *this;
+}
+
+void custom::Graph::add(const Vertex & v, const custom::set<Vertex>& s)
+{
+}
+
+void custom::Graph::add(const Vertex & v1, const Vertex & v2)
+{
 }
 
 
