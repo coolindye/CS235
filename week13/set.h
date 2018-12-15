@@ -117,7 +117,8 @@ public:
 
 	const_iterator & operator = (const const_iterator & rhs)
 	{
-		this->p = rhs->p;
+		this->p = rhs.p;
+		return *this;
 	}
 
 	// equals, not equals operator

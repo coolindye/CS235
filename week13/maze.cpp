@@ -177,7 +177,6 @@ Graph readMaze(const char * fileName)
  *****************************************/
 void solveMaze()
 {
-
-   // your code goes here.
+	Graph g1(readMaze("maze5x5.txt"));
 }
 

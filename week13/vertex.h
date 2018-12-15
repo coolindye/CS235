@@ -242,8 +242,10 @@ public:
    // set an index based on the text: b4 --> (1,3)
    bool setText(const string & s)
    {
-      if (s.size() == 2)
-         return set(s[0] - 'a', s[1] - '1');
+	   if (s.size() == 2)
+		   return set(s[0] - 'a', s[1] - '1');
+	   else if (s.size() < 2)
+		   return false;
       else
          return set(s[0] - 'a', (s[1] - '0') * 10 + (s[2] - '0') - 1);
    }

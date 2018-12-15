@@ -15,7 +15,7 @@
 #include <string>        // for STRING
 #include "graph.h"       // for Graph class which should be in graph.h
 #include "vertex.h"      // for Vertex, LVertex, and CVertex
-//#include "maze.h"
+#include "maze.h"
 #include "set.h"
 //#include <set>
 using std::cout;
@@ -43,7 +43,7 @@ void testFindAll();
 #define TEST1   // for testSimple()
 #define TEST2   // for testAdd()
 #define TEST3   // for testQuery()
-//#define TEST4   // for testFindAll()
+#define TEST4   // for testFindAll()
 
 /**********************************************************************
  * MAIN
@@ -247,7 +247,7 @@ void testFindAll()
 
          // read the class dependencies from a file
          // CS124 CS165 CIT225 ECEN160 |
-         ifstream fin("/home/cs235/week13/cs.txt");
+         ifstream fin("cs.txt");
          assert(fin.good());
          while (fin >> vFrom)  // read the first vertex, the class
          {

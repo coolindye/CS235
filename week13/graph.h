@@ -24,6 +24,7 @@ namespace custom
     private:
         int vTotal;
         bool *matrix;
+		Vertex *vertices;
 
     public:
         Graph()                                throw (const char *);
@@ -35,6 +36,11 @@ namespace custom
 
         void add(const Vertex &v, const custom::set<Vertex> &s);
         void add(const Vertex &v1, const Vertex &v2);
+		void clear();
+
+		set <Vertex> findEdges(const Vertex & source);
+
+		bool isEdge(Vertex source, Vertex destination) const;
     };
 
 
