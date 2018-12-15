@@ -88,6 +88,7 @@ int main()
          cout << "Unrecognized command, exiting...\n";
    }
 
+
    return 0;
 }
 
@@ -149,7 +150,7 @@ void testAdd()
       v1.setText(string("A"));
       v2.setText(string("B"));
       g.add(v1, v2);
-
+	  
       // B --> C
       cout << "\tB --> C\n";
       v1.setText(string("B"));

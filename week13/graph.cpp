@@ -40,12 +40,37 @@ custom::Graph & custom::Graph::operator=(const Graph & rhs) throw(const char *)
     return *this;
 }
 
-void custom::Graph::add(const Vertex & v, const custom::set<Vertex>& s)
+void custom::Graph::add(const Vertex & source, const set<Vertex>& destination)
 {
+	for (int i = 0; i < destination.size() ; i++)
+	{
+		matrix[(source.index() + destination[i].index()*vTotal)] = true;
+	}
+	for (int i = 0; i < vTotal*vTotal; i++)
+	{
+		if (i % vTotal == 0) cout << "\n";
+		cerr << matrix[i] << " ";
+	}
 }
 
-void custom::Graph::add(const Vertex & v1, const Vertex & v2)
+void custom::Graph::add(const Vertex & source, const Vertex & destination)
 {
+	matrix[(source.index() + destination.index()*vTotal)] = true;
+	for (int i = 0; i < vTotal*vTotal; i++)
+	{
+		if (i % vTotal == 0) cout << "\n";
+		cerr << matrix[i] << " ";
+	}
+}
+
+set <Vertex> custom::Graph::findEdges(const Vertex & source)
+{
+	matrix[(source.index() + destination.index()*vTotal)] = true;
+	for (int i = 0; i < vTotal*vTotal; i++)
+	{
+		if (i % vTotal == 0) cout << "\n";
+		cerr << matrix[i] << " ";
+	}
 }
 
 
