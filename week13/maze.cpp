@@ -28,6 +28,9 @@ using std::ifstream;
 //using custom::vector;
 using namespace custom;
 
+int MAZE_HEIGHT;
+int MAZE_WIDTH;
+
 /**********************************************
  * DRAW MAZE ROW
  * Draw all the horizontal tunnels on a given row
@@ -177,6 +180,28 @@ Graph readMaze(const char * fileName)
  *****************************************/
 void solveMaze()
 {
-	Graph g1(readMaze("maze5x5.txt"));
+	vector <Vertex> path;
+	char* filename = new char[256];
+	int numCol, numRow;
+
+	cout << "What is the filename? ";
+	cin >> filename;
+	Graph g1(readMaze(filename));
+	drawMaze(g1, path);
+
+	cout << "Press any key to solve the maze." << endl;
+	cin >> filename;
+
+	//finds the dimensions of the maze without user input
+	CVertex v1(0, 0);
+	numCol = v1.getMaxCol()-1;
+	numRow = v1.getMaxRow()-1;
+	CVertex v2(numCol, numRow);
+
+	//g1.display();
+	//cerr << endl;
+	g1.findPath(v1, v2, path);
+
+	drawMaze(g1, path);
 }
 
